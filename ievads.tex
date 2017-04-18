@@ -1,12 +1,38 @@
-Tirdzniecība interneta vidē gūst arvien lielāku popularitāti. Ar to saistītas arī vairākas problēmas attiecībā pret godīgu apmaiņu starp divām savstarpēji neuzticīgām pusēm. Pieņemsim, ka Alise un Bobs abi vēlas parakstīt elektronisku dokumentu, bet katrs no viņiem otram neuzticās tapēc Alise nesūtīs Bobam savu parakstu pirms Bobs neatsūtīs viņai savējo un otrādi. Tādējādi viņi nekad neapmainīsies ar parakstiem, turklāt ir pierādīts, ka bez trešās puses iejaukšanās nav iespējams sasniegt stingri godīgu apmaiņu. \cite{pagnia99}
-Ir piedāvāti dažādi problēmas risinājumi ar dažādām trešajām pusēm, bet ņemot vērā nesenos sasniegumus kriptovalūtu jomā uzskatu par nepieciešamu izpētīt risinājumus, kas trešās puses lomā novieto blokķēdi. 
+Tirdzniecība interneta vidē gūst arvien lielāku popularitāti. 
+Ar to saistītas arī vairākas problēmas attiecībā pret godīgu apmaiņu starp divām savstarpēji neuzticīgām pusēm. 
+Pieņemsim, ka Alise un Bobs abi vēlas parakstīt elektronisku dokumentu, bet katrs no viņiem otram neuzticās tapēc Alise nesūtīs Bobam savu parakstu pirms Bobs neatsūtīs viņai savējo un otrādi. 
+Tādējādi viņi nekad neapmainīsies ar parakstiem, turklāt ir pierādīts, ka bez trešās puses iejaukšanās nav iespējams sasniegt stingri godīgu apmaiņu.\cite{pagnia99}
+Ir piedāvāti dažādi problēmas risinājumi ar dažādām trešajām pusēm, bet ņemot vērā nesenos sasniegumus kriptovalūtu jomā uzskatu par nepieciešamu izpētīt risinājumus, kas trešās puses lomā novieto blokķēdi (ķēdi). 
+
+Pirmā ķēdes implementācija \textbf{Bitcoin} tika radīta kā konceptuāls pierādījums tam, ka var eksistēt digitāla valūta, kura ir decentralizēta un pseidonīma. 
+Vēlākas implementācijas stipri paplašināja ķēdes funkcionalitāti un atrisināja daudzas tehniskas \textbf{Bitcoin} problēmas, piemēram pieaugošo vēstures izmēru un nespēju augt līdzi pieaugošam transakciju skaitam. 
+Viena no šādām implementācijām ir \textbf{Ethereum}, kura pieļauj jebkādu skaitļošanas operāciju veikšanu decentralizētā vidē, ne tikai valūtas pārskaitījumus. 
+Rezultātā iespējams konstruēt līgumus, kuriem nepieciešama savstarpēji uzticama skaitļošanas mašīna.
+Iepriekšējais apgalvojums ir viegli pārprotams, jo ar vārdiem `uzticama skaitļošanas mašīna' šeit ir domāta kaste, kas garantēti veiks skaitļošanas operācijas un paziņos par rezultātu visiem dalībniekiem, nevis tāda, kas paturēs ievaddatus un skaitļošanas starprezultātus slepenībā.
+Tādējādi ķēde nerisina vairāku dalībnieku skaitļošanas (multi party computation) problēmu.
+Savukārt ķēdes priekšrocības pār parastu datoru ir tādas, ka starp ķēdes `skaitļošanas operācijām' ir arī naudas pārskaitīšana un ķēde saglabā neviltojamu vēsturi par veiktajām darbībām.
+Galvenokārt ķēde piedāvā alternatīvas esošiem biznesa procesiem un tās aplūkošanai ir praktiska nozīme.
+
+Darbā tiks aplūkota vispārīga problēma par to, kādām jābūt apmaināmo lietu īpašībām, lai ķēdi, ar fiksētām īpašībām, varētu izmantot godīgai apmaiņai. Tostarp tiks aprakstīta atomāras, konsistentas, izolētas, noturīgas starp ķēžu transakcijas (ACID cross chain transaction) veikšanas iespējamība. Pēc līdzības principa tiks konstruētas arī citas transakcijas, kurās tikai vienai pusei nepieciešams uzticēties ķēdei.
+
+Tiks aplūkota arī konkrēta problēma, kurā anonīmi hakeri (uzbrucējs) ielaužas vidēji lielu uzņēmumu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas. 
+Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. 
+Upurim šāda apmaiņa nav godīga, jo pēc naudas pārskaitījuma uzbrucējs var arī neatgriest upurim atšifrēšanas atslēgu.
+Da 
+Angliski tiek piemērots termins `ransomware', savukārt latviski autors piedāvā izmantot nosaukumu ķīlniekprogrammatūra.
+% Tas dod iespēju praktiski risināt labi zināmas teorētiskas problēmas un piedāvāt alternatīvas esošiem biznesa procesiem.
+% secure two party computation
+% cross chain acid transactions 
+% fair exchange
+
+
 
 Lai labāk saprastu godīgas apmaiņas problēmu norādīsim neformālu definīciju un aplūkosim vēl vienu piemēru.  
 An exchange is fair if at the end of the exchange, either each player
 receives the item it expects or neither player receives any additional
-information about the other's item. \cite[p.~8]{asokan98}
+information about the other's item.\cite[p.~8]{asokan98}
 
-Asokan, N. 1998. Fairness in electronic commerce . Ph. D. thesis, University of Waterloo.
+Asokan, N. 1998. Fairness in electronic commerce. Ph. D. thesis, University of Waterloo.
 
 Godīga apmaiņa ir tāda, ka pēc tās izpildes katrs dalībnieks iegūst ziņojumu, ko sagaidīja, vai arī neviens no dalībniekiem neguva papildus informāciju par citiem ziņojumiem.[Asokan 1998, p. 8]
 
