@@ -18,39 +18,4 @@ Darbā tiks aplūkota vispārīga problēma par to, kādām jābūt apmaināmo l
 Tiks aplūkota arī konkrēta problēma, kurā anonīmi hakeri (uzbrucējs) ielaužas vidēji lielu uzņēmumu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas. 
 Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. 
 Upurim šāda apmaiņa nav godīga, jo pēc naudas pārskaitījuma uzbrucējs var arī neatgriest upurim atšifrēšanas atslēgu.
-Da 
 Angliski tiek piemērots termins `ransomware', savukārt latviski autors piedāvā izmantot nosaukumu ķīlniekprogrammatūra.
-% Tas dod iespēju praktiski risināt labi zināmas teorētiskas problēmas un piedāvāt alternatīvas esošiem biznesa procesiem.
-% secure two party computation
-% cross chain acid transactions 
-% fair exchange
-
-
-
-Lai labāk saprastu godīgas apmaiņas problēmu norādīsim neformālu definīciju un aplūkosim vēl vienu piemēru.  
-An exchange is fair if at the end of the exchange, either each player
-receives the item it expects or neither player receives any additional
-information about the other's item.\cite[p.~8]{asokan98}
-
-Asokan, N. 1998. Fairness in electronic commerce. Ph. D. thesis, University of Waterloo.
-
-Godīga apmaiņa ir tāda, ka pēc tās izpildes katrs dalībnieks iegūst ziņojumu, ko sagaidīja, vai arī neviens no dalībniekiem neguva papildus informāciju par citiem ziņojumiem.[Asokan 1998, p. 8]
-
-Blokķēde (ķēde) ir datu struktūra līdzīga saistītam sarakstam, bet katrā posmā tiek ierakstīta iepriekšējā posma hash vērtība, tādējādi tajā nav iespējams ievietot jaunu posmu pa vidu, bet tos var pievienot tikai ķēdes galā. 
-Tipiskākais ķēdes lietojums ir decentralizētās elektroniskās valūtās, lai novērstu iespēju melot par ķēdes vēsturi. 
-Šī darba kontekstā ar ķēdi sapratīsim publisku datu bāzi, kurā ir iespējams rakstīt, bet nav iespējams mainīt vēsturi.
-Pieņemsim, ka katrs ķēdes posms sastāv no vairākiem ierakstiem un katram ierakstam ir autors.
-Lai izveidotu jaunu ierakstu jāizveido operācija uz kuras autors uzliek parakstu.
-
-Ir pierādīts, ka atrisināt godīgas apmaiņas probēmu patvaļīgiem ziņojumiem ir neiespējami sistēmā kurā trūkst trešās puses. 
-Problēmu var atvieglot pieļaujot trešās puses esamību un uzliekot ierobežojumus uz apmaināmajiem ziņojumiem.
-Tiks aplūkots gadījums kur trešās puses lomā ir ķēdes.
-Ziņojumi ir attiecīgo ķēžu operācijas ar derīgu parakstu.
-Aprakstošais algoritms pārbauda paraksta derīgumu pret operāciju. 
-
-Interneta forumos ir aprakstīts algoritms, kas pieļauj valūtu apmaiņu starp divām blokķēdēm.
-Tā kā ir divas ķēdes ir arī divas operācijas un tiek panākts, lai izpildītos abas operācijas, vai arī neizpildītos neviena.
-Varētu teikt, ka iesaistītās puses ir apmainījušās ar parakstītām ķēdes operācijām.
-Šajā darbā tiks aplūkots kādas īpašības piemīt ķēdei, kā trešajai pusei, godīgas apmaiņas problēmā, kādi ierobežojumi piemīt operācijām kā arī formāli aprakstīts minētais algoritms un meklēts vispārīgāks teorētisks rezultāts, kas balstītos uz līdzīga principa.
-
-
