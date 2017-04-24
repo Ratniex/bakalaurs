@@ -12,11 +12,16 @@ Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
 
 \textbf{Varbūtisks algoritms} (Probabilistic polynomial-time Turing machine \mbox{(\ppt))} ir Tjūringa mašīna kura spēj ģenerēt neatkarīgus gadījuma skaitļus. Ātrdarbība tiek novērta no apakšas pieņemot, ka tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritms atbilst definīcijai, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Par algoritmiem, kuri atbilst definīcijai saka, ka tie ir \textbf{efektīvi}.
 
-Varbūtisks algoritms $\a$ \textbf{aprēķina} funkciju $f$, ja 
+Varbūtisks algoritms $\a$ \textbf{aprēķina} funkciju $f$, ja
 $$ \forall x : \quad P[\a(x) = f(x)] = 1 $$
+Praksē tiek izmantoti arī algoritmi, kas retos gadījumos kļūdās, bet šī varbūtība ir tik maza, ka to var neņemt vērā.
 
-% \paragraph{Šanona drošuma definīcija.}
-
-% Šifrtekstu neatšķiramības drošuma definīcija.
-
+Kriptosistēmu sauc par efektīvu, ja izpildās īpašības:
+\begin{enumerate}
+    \item $k \leftarrow Gen(1^n)$ ir \ppt, kas izveido atslēgu $k$ jebkurai $n\in\n$ vērtībai.
+    \item $c \leftarrow Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkuriem $k$ un $m$.
+    \item $m \leftarrow Dec_k(c)$ ir \ppt, kas dotam $k$ atšifrē ziņojumu $c$.
+    \item Izpildās īpašība
+        $$ \forall n\in\n, m\in\oi^n \quad P[k\leftarrow Gen(1^n): Dec_k(Enc_k(m)) = m] = 1 $$
+\end{enumerate}
 
