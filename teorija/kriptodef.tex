@@ -1,6 +1,5 @@
-% ppt
-% crypto system
-% secure
+Šajā nodaļā tiek konspektēts minimālais kriptogrāfijas daudzums, lai darbs būtu uztverams, tomēr padziļinātas zināšanas ir ieteicamas un to iegūšana tiek atstāta lasītāja ziņā. Definīcijas un atsevišķi skaidrojumi tiek ņemti no\cite{pass10}.
+
 Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
 \begin{description}
     \item[$\m$]Ziņojumu telpa
@@ -10,7 +9,9 @@ Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
     \item[$Dec$]Atšifrēšanas algoritms
 \end{description}
 
-\textbf{Varbūtisks algoritms} (Probabilistic polynomial-time Turing machine \mbox{(\ppt))} ir Tjūringa mašīna kura spēj ģenerēt neatkarīgus gadījuma skaitļus. Ātrdarbība tiek novērta no apakšas pieņemot, ka tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritms atbilst definīcijai, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Par algoritmiem, kuri atbilst definīcijai saka, ka tie ir \textbf{efektīvi}.
+Par asimetrisku, jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts lietot tikai publisko atslēgu, bet atšifrēšanas algoritms var lietot abas. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
+
+\textbf{Varbūtisks algoritms}, jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritms atbilst definīcijai, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Par algoritmiem, kuri atbilst definīcijai saka, ka tie ir \textbf{efektīvi}.
 
 Varbūtisks algoritms $\a$ \textbf{aprēķina} funkciju $f$, ja
 $$ \forall x : \quad P[\a(x) = f(x)] = 1 $$
@@ -19,9 +20,17 @@ Praksē tiek izmantoti arī algoritmi, kas retos gadījumos kļūdās, bet šī 
 Kriptosistēmu sauc par efektīvu, ja izpildās īpašības:
 \begin{enumerate}
     \item $k \leftarrow Gen(1^n)$ ir \ppt, kas izveido atslēgu $k$ jebkurai $n\in\n$ vērtībai.
-    \item $c \leftarrow Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkuriem $k$ un $m$.
+    \item $c \leftarrow Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkurai atslēgai $k$ un ziņojumam $m$.
     \item $m \leftarrow Dec_k(c)$ ir \ppt, kas dotam $k$ atšifrē ziņojumu $c$.
-    \item Izpildās īpašība
-        $$ \forall n\in\n, m\in\oi^n \quad P[k\leftarrow Gen(1^n): Dec_k(Enc_k(m)) = m] = 1 $$
+    \item Izpildās īpašība, ka visiem ziņojumiem tiek atšifrēts tas pats kas tika nošifrēts.
+        $$ \forall n\in\n, m\in\m \quad P[k\leftarrow Gen(1^n): Dec_k(Enc_k(m)) = m] = 1 $$
 \end{enumerate}
 
+Par \textbf{pretinieku} sauc \ppt{}  kurš kā ievaddatus saņem kriptosistēmu, publisko atslēgu un drošuma parametru $1^n$.
+
+Jebkurai kriptosistēmai prasa, lai no dotiem $m\in\m$ un $k\in\k$ būtu iespējams efektīvi ģenerēt šifrtekstu $c$. Kā arī, lai no jebkura $c$ nevarētu noskaidrot $k$ vai $m$.
+
+Par \textbf{vienvirziena funkciju} $f$ sauc tādu, kurai eksistē \ppt{} $\mathcal{C}$ kas aprēķina $f$, bet neeksistē \ppt{} $\a$ kuram 
+$$ \forall y \in \text{Ran}(f): P[f(\a(y)) = y] = 1 $$
+Vispārīga kriptogrāfijas teorija daudz balstās uz vienvirziena funkcijām un tām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiska vērtība.
+% Kriptosistēmu sauc par drošu, ja pretiniekam $\a$, kuram kā ievaddatus padod ziņojumus $m_1, m_2$ un šifrtekstu $c$ ar nosacījumu, ka atšifrējot $c$ iegūs kādu no dotajiem ziņojumiem, tas nespēs uzminēt ar varbūtību lielāku par $\sfrac12$ kurš no ziņojumiem tika nošifrēts. Formāli:
