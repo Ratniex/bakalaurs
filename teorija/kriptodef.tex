@@ -9,9 +9,9 @@ Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
     \item[$Dec$]Atšifrēšanas algoritms
 \end{description}
 
-Par asimetrisku, jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts lietot tikai publisko atslēgu, bet atšifrēšanas algoritms var lietot abas. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
+Par asimetrisku, jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts publisko atslēgu, bet atšifrēšanas algoritmam privāto. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
 
-\textbf{Varbūtisks algoritms}, jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritms atbilst definīcijai, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Par algoritmiem, kuri atbilst definīcijai saka, ka tie ir \textbf{efektīvi}.
+\textbf{Varbūtisks algoritms}, jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritmu sauc par \textbf{efektīvu}, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Varbūtiska algoritma rezultāts ir gadījuma lielums.
 
 Varbūtisks algoritms $\a$ \textbf{aprēķina} funkciju $f$, ja
 $$ \forall x : \quad P[\a(x) = f(x)] = 1 $$
