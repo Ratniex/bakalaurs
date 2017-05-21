@@ -1,0 +1,40 @@
+Aplūkosim Alisi un Bobu. Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas atbilst aprakstam $Desc_a$ kuru Bobs vēlas noskaidrot un Bobam ir ziņojums $m_b$, kuru vēlas Alise, turklāt viņi ir gatavi apmainīties ar ziņojumiem. Par \textbf{apmaiņu} sauc protokolu pēc kura izpildes abas puses iegūst vēlamos ziņojumus. 
+
+Apmaiņu sauc par \textbf{godīgu}, ja pēc tās veikšanas visas puses ir ieguvušas vēlamos ziņojumus, vai arī neviena no pusēm nav ieguvusi papildus informāciju par ziņojumiem. Naiva apmaiņa ir sekojoša: Alise nosūta savu ziņojumu Bobam un tad Bobs nosūta savu ziņojumu Alisei. Šāda apmaiņa nav godīga, jo Bobs pēc ziņojuma saņemšanas var novirzīties no protokola un savu ziņojumu nesūtīt. Alisei un Bobam savā starpā sazinoties neizbēgami kāds no viņiem pirmais iegūs sev vēlamo ziņojumu un pārtrauks komunikāciju tapēc problēma nav atrisināma bez trešās puses iesaistīšanās apmaiņā.\cite{pagnia99}
+
+Vienkāršības labad veiksim sekojošus pieņēmumus.
+\begin{itemize}
+    \item Visi komunikācijas kanāli ir droši. Tos nenoklausās.
+    \item Visi komunikācijas kanāli ir uzticami. Katrs ziņojums garantēti nonāk pie saņēmēja īsā laikā.
+    \item Alise un Bobs ir vienojušies par globālo laiku $t_1$ pēc kura jebkurš nenosūtīts ziņojums tiek uzskatīti par novirzīšanos no protokola.
+    \item Trešā puse katram saņemtajam ziņojumam garantēti dod parakstītu apstiprinājumu, ka ziņojums tika saņemts, kur apstiprinājums sastāv no globālā laika un saņemtā ziņojuma.
+\end{itemize}
+
+% aprakstīt klasifikāciju fair exchange problēmām un risināt parakstus
+Aplūkosim konkrētu piemēru, kur Alise un Bobs ir vienojušies par līgumu $l$, kuru abi vēlas elektroniski parakstīt un katram no viņiem vajag otra parakstu. Pieņemsim, ka Alisei ir atslēgu pāris $k_a$, tad
+\begin{itemize}
+    \item Ziņojums kuru vēlas Bobs: $m_a = s_a$, kur $(l, s_a) = Sig_{k_a}(l)$
+    \item Apraksta funkcija $Desc_a(x) = Ver_{k_a}(l, x)$
+\end{itemize}
+Līdzīgi definē arī Boba aprakstu un ziņojumu.
+
+Viens no veidiem kā atvieglot uzdevumu ir ieviest trešo pusi T caur kuru notiek komunikācija, savukārt Alise ir apmierināta ne tikai tad, ja saņem vēlamo ziņojumu, bet arī tad, ja spēj pierādīt, ka trešā puse ir pret viņu sazvērējusies.
+Protokols, kas izpilda godīgu apmaiņu dotajā gadījumā ir šāds.
+\begin{enumerate}
+    \item A nosūta T ziņojumu $m_a$ un funkciju $Desc_b$.
+    \item B nosūta T ziņojumu $m_b$ un funkciju $Desc_a$.
+    \item Ja $Desc_a(m_a) = Desc_b(m_b) = \t$, tad T nosūta A un B atbilstošos ziņojumus.
+\end{enumerate}
+Ja A vai B nenosūta savu ziņojumu, tad T pēc laika $t_1$ paziņo abiem, ka maiņa tiek atcelta. Ja T nosūta B ziņojumu $m_a$, bet A nenosūta neko, tad A uzzinot, ka B ir ieguvis parakstītu līgumu spēs pierādīt, ka T ir sazvērējies pret viņu. Fakts, ka A vēl ir jānoskaidro, ka B ir ieguvis parakstītu līgumu ir mazliet negodīgi pret A. Dotais protokols pieprasa ļoti augstu uzticību T gan no A, gan B. Ir izveidoti daudz labāki protokoli, kas neļauj T uzzināt $m_a$ un $m_b$ vērtības, turklāt liek T iejaukties tikai nepieciešamības gadījumā, tomēr nav novērsts nelielais negodīgums attiecībā pret A.\cite{asokan98}
+
+Atrastajos apmaiņas protokolos~\cite{asokan98,schunter00}% citation needed
+trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos datus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
+
+% ir diezgan slikti ar blokķēdes definīcijām, jo risinājums, kuru tirgum piegādā bitcoin sastāv no vairākām komponentēm. valodas vulgarizācijas rezultātā orģināldarbā nakamoto par blokķēdi sauc kaut ko pilnīgi citu nekā ir pieņemts plašākā sabiedrībā. miskoncepcijas ir radījušas problēmas ne tikai biznesa cilvēkiem, bet arī tehniskajiem. ir mēģināts uzbūvēt vairākas perversas lietas un kods nav modulārs. hyperledger mēģina to vērst par labu uztaisot frame work
+% uzbūvēt blokķēdes kā trešās puses matemātisko modeli ir grūti jo trūkst literatūras 
+% Par \textbf{forumu} sauc tādu trešo pusi, kas uztur sarakstu ar saņemtajiem ziņojumiem to saņemšanas secībā un 
+% aplūko sistēmu kur trešā puse nespēj paturēt datus slepenībā, bet nespēj uzmest un nav cenzēta. vienam no ziņojumiem arī jābūt transakcijai
+
+% pameklēt fair exchange blockchain
+% pameklēt blockchain abstraktu klasifikāciju iekš scholar
+% ja neizdodas tad definēt: forumu, izdevniecību, tirgu, necenzētu
