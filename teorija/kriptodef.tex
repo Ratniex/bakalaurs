@@ -33,4 +33,37 @@ Jebkurai kriptosistēmai prasa, lai no dotiem $m\in\m$ un $k\in\k$ būtu iespēj
 Par \textbf{vienvirziena funkciju} $f$ sauc tādu, kurai eksistē \ppt{} $\mathcal{C}$ kas aprēķina $f$, bet neeksistē \ppt{} $\a$ kuram 
 $$ \forall y \in \text{Ran}(f): P[f(\a(y)) = y] = 1 $$
 Vispārīga kriptogrāfijas teorija daudz balstās uz vienvirziena funkcijām un tām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiska vērtība.
-% Kriptosistēmu sauc par drošu, ja pretiniekam $\a$, kuram kā ievaddatus padod ziņojumus $m_1, m_2$ un šifrtekstu $c$ ar nosacījumu, ka atšifrējot $c$ iegūs kādu no dotajiem ziņojumiem, tas nespēs uzminēt ar varbūtību lielāku par $\sfrac12$ kurš no ziņojumiem tika nošifrēts. Formāli:
+
+Par jaucējfunkciju (hash function) sauc vienvirziena funkciju $h: \oi^* \to \oi^n$, kurai ir izpildās noturība pret sadursmēm. 
+\begin{equation*}
+    P[x, y \leftarrow \a : h(x) = h(y)] = 0
+\end{equation*}
+kur $\a$ ir pretinieks un $x\neq y$.
+
+Par \textbf{parakstu sistēmu} sauc kortežu $(\m, \k, Gen, Sig, Ver)$ kuram izpildās
+\begin{equation*}
+    \forall m \in \m \;:\; P[k \leftarrow Gen: Ver_k(m, Sig_k(m))=\t] = 1
+\end{equation*}
+Šeit $\m$ ir ziņojumu telpa, $\k$ ir atslēgu telpa, $Gen$ ir atslēgu ģenerēšanas algoritms, $Sig$ ir parakstīšanas algoritms un $Ver$ ir paraksta pārbaudīšanas algoritms. Līdzīgi, kā kriptosistēmu gadījumā $k$ sastāv no slepenās atslēgas $k_s$, kuru izmanto parakstītājs un publiskās atslēgas $k_p$, kuru izmanto paraksta pārbaudei. Algoritma $Ver$ vērtību apgabals sastāv no divām vērtībām \textemdash{} derīgs $\t$ un nederīgs $\f$.
+
+Par \textbf{parakstītu ziņojumu} sauc pāri $(m, s)$, kur $m\in \m$ ir ziņojums, bet $s$ ir paraksts. Atslēgu $k$ sauc par parakstītāju. Parakstītu ziņojumu $(m,s)$ sauc par derīgu, ja $Ver(m,s) =\t$.
+
+Parakstu sistēmu sauc par drošu, ja
+\begin{equation*}
+    P[k \leftarrow Gen; (m,s) \leftarrow \a (k_p)\;:\; m\ni Q \wedge Ver_k(m,s) =\t] = 0
+\end{equation*}
+kur $\a$ ir pretinieks kuram pieejams orākuls, kas saņemot $m$ atbild ar $Sig_k(m)$, bet $Q$ ir saraksts ar jautājumiem, kuri tika uzdoti orākulam.\cite[p.~135]{pass10}
+
+No kriptosistēmas $(\m', \k', Gen', Enc, Dec)$ un jaucējfunkcijas $h$ var uzkonstruēt parakstu sistēmu $(\m, \k, Gen, Sig, Ver)$
+\begin{align*}
+    & \m = \m' \\
+    & \k = \left\{ (k_s, k_p) | (k_p, k_s) \in \k' \right\} \\
+    & Gen = Swap(Gen') \\
+    & Sig(m) = \big(m, Enc_k(h(m))\big)  \\
+    & Ver(m,s) =
+    \begin{cases}
+        \t, &\text{ja}\; h(m) = Dec_k(s) \\
+        \f, &\text{citādi}
+    \end{cases}
+\end{align*}
+Ievēro, ka parakstu sistēmas privātā atslēga ir kriptosistēmas publiskā un otrādi, tapēc no kriptosistēmas papildus nepieciešams nosacījums, ka no slepenās atslēgas un nošifrētiem ziņojumiem nevar izskaitļot publisko atslēgu.
