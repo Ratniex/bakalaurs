@@ -30,11 +30,21 @@ Ja A vai B nenosūta savu ziņojumu, tad T pēc laika $t_1$ paziņo abiem, ka ma
 Atrastajos apmaiņas protokolos~\cite{asokan98,schunter00}% citation needed
 trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos datus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
 
-% ir diezgan slikti ar blokķēdes definīcijām, jo risinājums, kuru tirgum piegādā bitcoin sastāv no vairākām komponentēm. valodas vulgarizācijas rezultātā orģināldarbā nakamoto par blokķēdi sauc kaut ko pilnīgi citu nekā ir pieņemts plašākā sabiedrībā. miskoncepcijas ir radījušas problēmas ne tikai biznesa cilvēkiem, bet arī tehniskajiem. ir mēģināts uzbūvēt vairākas perversas lietas un kods nav modulārs. hyperledger mēģina to vērst par labu uztaisot frame work
-% uzbūvēt blokķēdes kā trešās puses matemātisko modeli ir grūti jo trūkst literatūras 
-% Par \textbf{forumu} sauc tādu trešo pusi, kas uztur sarakstu ar saņemtajiem ziņojumiem to saņemšanas secībā un 
-% aplūko sistēmu kur trešā puse nespēj paturēt datus slepenībā, bet nespēj uzmest un nav cenzēta. vienam no ziņojumiem arī jābūt transakcijai
+Autors piedāvā sekojošās definīcijas:
+\begin{itemize}
+    \item Par \textbf{mezglu} sauc tādu trešo pusi, kas uztur kopu ar visiem saņemtajiem ziņojumiem un padara visus ziņojumus publiski pieejamus.
+    \item Par \textbf{žurnālu} $(H, Con)$ sauc trešo pusi, kas uztur sakārtotu vēsturi
+        $H = {\{(\m, \s, \r)\}}^*$
+        ar parakstītiem ziņojumiem $(m,s,t)$,
+        kur sakārtojums tiek veikts pēc ziņojumu saņemšanas laika $t$.
+        Turklāt ir definēta vienprātības (consensus) funkcija
+        $Con: (\m,\s) \rightarrow \left\{ \t,\f \right\}$,
+        kas tiek tiek izpildīta katram saņemtajam ziņojumam $(m,s)$.
+        Ja $Con(m,s) = \t$, tad jaunā vēstures $H$ vērtība ir $H\oplus (m,s,t)$.
+    \item Par \textbf{ķēdi} $(H, Con, \s\times L)$ sauc trešo pusi kur %$Con: (\m,\s) \rightarrow L$ vērtība ir atkarīga no ķēdes stāvokļa $l\in L$ un pēc katra saņemtā ziņojuma tiek veikta pārbaude $l + Con(m,s) > 0$ tad vēsture pagarinās un stāvoklis mainās no $l$ uz $l+Con(m,s)$. $L$ ir lineāra telpa.
+    % \item Žurnālu sauc par necenzētu, ja vienprātības funkcija $Con$ ir determinēta un publiski zināma.
+    % \item lietu sauc par pulksteņainu, ja con ir trešais parametrs t laiks
+\end{itemize}
+Ķēdes definēšana kā viena no pusēm godīgas apmaiņas problēmā ir nepatīkams uzdevums, bet motivācija izvēlēties šādas definīcijas tiks aprakstīta nākamajā nodaļā.
 
-% pameklēt fair exchange blockchain
-% pameklēt blockchain abstraktu klasifikāciju iekš scholar
-% ja neizdodas tad definēt: forumu, izdevniecību, tirgu, necenzētu
+Aplūkojot ķēdi kā trešo pusi ir pamats ticēt, ka tā nespēj palīdzēt risināt godīgu apmaiņu, jo sūtot ziņojumus ķēdei tie kļūst pieejami jebkuram, tomēr tas netiks formāli pierādīts. Lai godīgu apmaiņu varētu veikt ar ķēdes palīdzību tiks uzlikti papildus nosacījumi uz apmaināmajiem ziņojumiem. Tā vietā, lai Alise un Bobs apmainītos ziņojumiem Bobs vēlas iegūt $m_a$, lai tas tiktu publicēts ķēdē un citādi ir bezvērtīgs. Tādā gadījumā Alise var priekšlaicīgi nolikt ķēdi tādā stāvoklī, lai $m_a$ publicēšana būtu iespējama tikai tad, ja tiek publicēts arī $m_b$.
