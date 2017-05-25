@@ -1,6 +1,37 @@
 \documentclass[singlespacing, latexmargins]{ludis}
 
-\usepackage{graphicx}
+% % custom packages by Peteris Ratnieks
+% \usepackage{booktabs}
+% \usepackage[normalem]{ulem}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amssymb}
+% \usepackage{mathabx}
+% \usepackage{upgreek}
+% \usepackage{hyperref}
+% \usepackage{mathtools}
+% \usepackage{graphicx}
+% \usepackage{float}
+% \usepackage{wrapfig}
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{listings}
+% %\usepackage{fullpage}
+% % custom definitions
+% \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+% \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+% \makeatletter
+% \let\oldabs\abs
+% \def\abs{\@ifstar{\oldabs}{\oldabs*}}
+% \let\oldnorm\norm
+% \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+% \makeatother
+% \lstset{numbers=left,
+    % stepnumber=1,
+    % firstnumber=1,
+    % numberfirstline=true
+% }
+% \lstinputlisting[language=Python, firstline=2, lastline=22]{code.py}
 
 % XeLaTeX atbalsts tiek pieslēgts ar šādām pakotnēm:
 \usepackage{fontspec}
@@ -58,11 +89,12 @@
 \section{Godīga apmaiņa}
 \input{teorija/fairexchange.tex}
 
-\section{Digitāla valūta}
-% double spending
+% \section{Digitāla valūta}
+% double spending, te kļūst skaidrs, ka secība ir svarīga.
 % reusability
 
 \section{Blokķēde}
+\input{teorija/chain.tex}
 % hash chain
 %% skip list
 %% merkle tree
