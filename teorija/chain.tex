@@ -2,32 +2,59 @@
 Tas ko sauc par ķēdi plašākā sabiedrībā tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
 Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr pa virsu šīm norēķinu sistēmām tiek veidoti arī citi servisi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram domēna vārdu reģistra, sertefikātu autoritātes, vēlēšanu un citi servisi.\cite{namecoin} Arī šīs tiek sauktas par ķēdēm.
 Turklāt esošās ķēžu implementācijas ir tik daudzveidīgas un ar atšķirīgu funkcionalitāti, ka ir grūti spriest kādās ir vispārīgas ķēdes īpašības.
-Šajā nodaļā aplūkosim vairākas saistītas tēmas:
-\begin{description}
-    \item[Decentralizētas sistēmas]
-        % torrenti, BGP, consensus nepieciešamība, anti spam nepieciešamība <- parakstu nepieciešamība
-        \item[Digitālas valūtas]
-        % double spending, te kļūst skaidrs, ka secība ir svarīga.
-        % reusability
-        \item[Blokķēdes realizācijas]
-        % hash chain
-        %% skip list
-        %% merkle tree
-        % consensus algorithms
-        %% proof of work 
-        %% proof of stake
-        %% fba
-        %% proof of ddos
-\end{description}
-\subsection{wow}
-% trūkts vienotas blokķēdes definīcijas vispārīgā kontekstā, vēl jo vairāk trūkst pat vienotas izpratnes.
-% ir vairākas eksistējošas ķēdes implementācijas un katrai no tām piemīt sava specifiska.
-% ķēde ir vairāku tehnoloģiju apvienojums un tai piemīt vairākas svarīgas īpašības
+Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un Merkles koki. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
 
-% ir diezgan slikti ar blokķēdes definīcijām, jo risinājums, kuru tirgum piegādā bitcoin sastāv no vairākām komponentēm. valodas vulgarizācijas rezultātā orģināldarbā nakamoto par blokķēdi sauc kaut ko pilnīgi citu nekā ir pieņemts plašākā sabiedrībā. miskoncepcijas ir radījušas problēmas ne tikai biznesa cilvēkiem, bet arī tehniskajiem. ir mēģināts uzbūvēt vairākas perversas lietas un kods nav modulārs. hyperledger mēģina to vērst par labu uztaisot frame work
-% uzbūvēt blokķēdes kā trešās puses matemātisko modeli ir grūti jo trūkst literatūras 
-% Par \textbf{forumu} sauc tādu trešo pusi, kas uztur sarakstu ar saņemtajiem ziņojumiem to saņemšanas secībā un 
-% aplūko sistēmu kur trešā puse nespēj paturēt datus slepenībā, bet nespēj uzmest un nav cenzēta. vienam no ziņojumiem arī jābūt transakcijai
+\subsection{Digitāla valūta}
+% Ar digitālām valūtām ir saistītas sekojošas problēmas.
+Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids, kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
+Mūsdienās par patiesības avotu parasti kalpo kāda centrāla organizācija, piemēram Visa vai PayPal, tomēr vienots patiesības avots var būt arī jebkurš izkliedētas sistēmas dalībnieks, ja visi tās dalībnieki laika gaitā pieņems vienādu stāvokli.
+Ar parakstītu ziņojumu palīdzību ir iespējams izveidot autorizētus maksājuma pieprasījumus un šeit nav būtiskas atšķirības starp centralizētu un decentralizētu risinājumu. Savukārt sistēmai saņemot divus pieprasījumus no kuriem katrs atsevišķi ir derīgs, bet abi kopā izpildīties nevar, ir jāpieņem lēmums par to kurš izpildās un kurš ne.
+Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) protokols, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
+Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būtu lietojams decentralizētā vidē.
+
+\subsection{Izkliedētā skaitļošana (distributed computing)}
+Aprakstīsim Bizantijas vienošanās problēmu (Byzantine agreement, Byzantine generals problem).
+Pieņemsim, ka ir sistēma kas sastāv no tīklā saslēgtiem datoriem, kuri sazinās savā starpā sūtot ziņojumus. Mērķis ir vienoties par koordinētu tālāko rīcību, kas ir atkarīga no ārējiem apstākļiem, kuri iepriekš nav zināmi. Uzdevumu padara grūtu tas, ka starp datoriem var būt arī tādi, kas ļaunprātīgi cenšas sabotēt vienotu rīcību.
+% Like non-federated Byzantine agreement, FBA addresses the problem of updating replicated
+% state, such as a transaction ledger or certificate tree. By agreeing on what updates to
+% apply, nodes avoid contradictory, irreconcilable states. We identify each update by a
+% unique slot from which inter-update dependencies can be inferred. For instance, slots
+% may be consecutively numbered positions in a sequentially applied log.
+
+% Virsotne $v$ var pieņemt izmaiņas $x$ pozīcijā $i$, kad tā ir pieņēmusi izmaiņas 
+% A node 𝑣 can safely apply update 𝑥 in slot 𝑖 when it has safely applied updates in all
+% slots upon which 𝑖 depends and, additionally, it believes all correctly functioning nodes
+% will eventually agree on 𝑥 for slot 𝑖. At this point, we say 𝑣 has externalized 𝑥 for slot 𝑖.
+% The outside world may react to externalized values in irreversible ways, so a node
+% cannot later change its mind about them.
+Šāda decentralizēta sistēma risina Bizantijas vienošanās problēmu, tapēc katru sistēmas dalībnieku sauksim par \textbf{virsotni}.
+Virsotni sauc par \textbf{godīgu}, ja tā ievēro vienprātības protokolu un veiksmīgi saņem un atbild uz ziņojumiem.
+Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
+Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz negodīgo virsotņu sadarbību.
+Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
+% ielikt no stellar whitepaper bildi 7lpp
+
+% Protokolam jāpanāk, ka visas godīgās virsotnes laika gaitā publicēs tās pašas izmaiņas.
+
+% Failu apmaiņa starp vienaudžiem (p2p), izmantojot BitTorrent protokolu, ir pierādījusi sevi kā praktiski necenzējamu sistēmu. Ja kāds fails tīklā kļūst populārs, tad ir pamats ticēt, ka tas nevar no turienes pazust. Veiksmīgākie mēģinājumi cīnīties pret dalīšanos BitTorrent tīklā ir saistīti ar uzbrukumiem tādiem serveriem, kas uztur sarakstu ar tīklā atrodamajiem failiem. Tomēr ir ieviesti strādājoši paplašinājumi BitTorrent protokolam, kas ļauj atrast failus decentralizētā vidē un iepriekšminētie serveri vairs nav nepieciešami.\cite{pouwelse08}
+
+
+% \begin{description}
+%     \item[Decentralizētas sistēmas] Torenti, Bizantijas ģenerāļu problēma, vienprātības nepieciešamība sakārtotas vēstures uzturēšanai.
+%         % torrenti, BGP, consensus nepieciešamība, anti spam nepieciešamība <- parakstu nepieciešamība
+%         \item[Digitālas valūtas]
+%         % double spending, te kļūst skaidrs, ka secība ir svarīga.
+%         % reusability
+%         \item[Blokķēdes realizācijas]
+%         % hash chain
+%         %% skip list
+%         %% merkle tree
+%         % consensus algorithms
+%         %% proof of work 
+%         %% proof of stake
+%         %% fba
+%         %% proof of ddos
+% \end{description}
 
 % pameklēt fair exchange blockchain
 % pameklēt blockchain abstraktu klasifikāciju iekš scholar

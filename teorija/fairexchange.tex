@@ -33,14 +33,11 @@ trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks defi
 Autors piedāvā sekojošās definīcijas:
 \begin{itemize}
     \item Par \textbf{mezglu} sauc tādu trešo pusi, kas uztur kopu ar visiem saņemtajiem ziņojumiem un padara visus ziņojumus publiski pieejamus.
-    \item Par \textbf{žurnālu} $(H, Con)$ sauc trešo pusi, kas uztur sakārtotu vēsturi
+    \item Par \textbf{žurnālu} sauc trešo pusi, kas uztur sakārtotu publiski pieejamu vēsturi
         $H = {\{(\m, \s, \r)\}}^*$
         ar parakstītiem ziņojumiem $(m,s,t)$,
         kur sakārtojums tiek veikts pēc ziņojumu saņemšanas laika $t$.
-        Turklāt ir definēta vienprātības (consensus) funkcija
-        $Con: (\m,\s) \rightarrow \left\{ \t,\f \right\}$,
-        kas tiek tiek izpildīta katram saņemtajam ziņojumam $(m,s)$.
-        Ja $Con(m,s) = \t$, tad jaunā vēstures $H$ vērtība ir $H\oplus (m,s,t)$.
+        Turklāt katrs derīgais parakstītais ziņojums tiek pievienots vēsturei.
     \item Par \textbf{ķēdi} $(H, Con, \s\times L)$ sauc trešo pusi kur %$Con: (\m,\s) \rightarrow L$ vērtība ir atkarīga no ķēdes stāvokļa $l\in L$ un pēc katra saņemtā ziņojuma tiek veikta pārbaude $l + Con(m,s) > 0$ tad vēsture pagarinās un stāvoklis mainās no $l$ uz $l+Con(m,s)$. $L$ ir lineāra telpa.
     % \item Žurnālu sauc par necenzētu, ja vienprātības funkcija $Con$ ir determinēta un publiski zināma.
     % \item lietu sauc par pulksteņainu, ja con ir trešais parametrs t laiks
