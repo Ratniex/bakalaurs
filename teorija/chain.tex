@@ -2,39 +2,49 @@
 Tas ko sauc par ķēdi plašākā sabiedrībā tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
 Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr pa virsu šīm norēķinu sistēmām tiek veidoti arī citi servisi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram domēna vārdu reģistra, sertefikātu autoritātes, vēlēšanu un citi servisi.\cite{namecoin} Arī šīs tiek sauktas par ķēdēm.
 Turklāt esošās ķēžu implementācijas ir tik daudzveidīgas un ar atšķirīgu funkcionalitāti, ka ir grūti spriest kādās ir vispārīgas ķēdes īpašības.
-Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un Merkles koki. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
+Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un Merkles koku. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
 
 \subsection{Digitāla valūta}
 % Ar digitālām valūtām ir saistītas sekojošas problēmas.
 Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids, kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
 Mūsdienās par patiesības avotu parasti kalpo kāda centrāla organizācija, piemēram Visa vai PayPal, tomēr vienots patiesības avots var būt arī jebkurš izkliedētas sistēmas dalībnieks, ja visi tās dalībnieki laika gaitā pieņems vienādu stāvokli.
 Ar parakstītu ziņojumu palīdzību ir iespējams izveidot autorizētus maksājuma pieprasījumus un šeit nav būtiskas atšķirības starp centralizētu un decentralizētu risinājumu. Savukārt sistēmai saņemot divus pieprasījumus no kuriem katrs atsevišķi ir derīgs, bet abi kopā izpildīties nevar, ir jāpieņem lēmums par to kurš izpildās un kurš ne.
-Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) protokols, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
+Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) algoritms, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
 Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būtu lietojams decentralizētā vidē.
+
+\subsection{Merkles koks}
+Šajā nodaļā aplūkosim datu struktūras, kas ļauj uzturēt nemaināmu vēsturi.
 
 \subsection{Izkliedētā skaitļošana (distributed computing)}
 Aprakstīsim Bizantijas vienošanās problēmu (Byzantine agreement, Byzantine generals problem).
 Pieņemsim, ka ir sistēma kas sastāv no tīklā saslēgtiem datoriem, kuri sazinās savā starpā sūtot ziņojumus. Mērķis ir vienoties par koordinētu tālāko rīcību, kas ir atkarīga no ārējiem apstākļiem, kuri iepriekš nav zināmi. Uzdevumu padara grūtu tas, ka starp datoriem var būt arī tādi, kas ļaunprātīgi cenšas sabotēt vienotu rīcību.
-% Like non-federated Byzantine agreement, FBA addresses the problem of updating replicated
-% state, such as a transaction ledger or certificate tree. By agreeing on what updates to
-% apply, nodes avoid contradictory, irreconcilable states. We identify each update by a
-% unique slot from which inter-update dependencies can be inferred. For instance, slots
-% may be consecutively numbered positions in a sequentially applied log.
+Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpašības.
+\begin{enumerate}
+    \item Datoram izpildot algoritmu tiek pieņemts tāds pats lēmums, kā citiem datoriem, kuri izpilta algoritmu.
+    \item Neliels daudzums ar ļaunprātīgiem datoriem nespēj ietekmēt pieņemto lēmumu.
+\end{enumerate}\cite{lamport82}
+Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsoni} (node), jo tie ir tīklā saslēgti vienlīdzīgi elementi. Veiksim arī citas nelielas modifikācijas
+Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits.
+Pieņemtais lēmums mūsu gadījumā virsgrāmata.
 
-% Virsotne $v$ var pieņemt izmaiņas $x$ pozīcijā $i$, kad tā ir pieņēmusi izmaiņas 
-% A node 𝑣 can safely apply update 𝑥 in slot 𝑖 when it has safely applied updates in all
-% slots upon which 𝑖 depends and, additionally, it believes all correctly functioning nodes
-% will eventually agree on 𝑥 for slot 𝑖. At this point, we say 𝑣 has externalized 𝑥 for slot 𝑖.
-% The outside world may react to externalized values in irreversible ways, so a node
-% cannot later change its mind about them.
-Šāda decentralizēta sistēma risina Bizantijas vienošanās problēmu, tapēc katru sistēmas dalībnieku sauksim par \textbf{virsotni}.
-Virsotni sauc par \textbf{godīgu}, ja tā ievēro vienprātības protokolu un veiksmīgi saņem un atbild uz ziņojumiem.
+Tā kā darbojamies decentralizētā vidē, tad viens ļaundaris bez problēmām var izlikties par vairākām virsotnēm vienlaicīgi. Tādēļ otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
+Kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tapēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
+% proof of work
+% proof of stake
+% fba
+% proof of ddos
+
+\subsubsection{Pierādījums ar darbu (Proof of work)}
+\subsubsection{Pierādījums ar risku (Proof of stake)}
+\subsubsection{Federatīva Bizantijas vienošanās (FBA)}
+Papildināsim uzdevumu ar sekojošajām definīcijām.
 Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
-Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz negodīgo virsotņu sadarbību.
+Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz ļaunprātīgo virsotņu sadarbību.
 Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
+\subsubsection{Pierādījums ar DDoS (Proof of DDoS)}
 % ielikt no stellar whitepaper bildi 7lpp
 
-% Protokolam jāpanāk, ka visas godīgās virsotnes laika gaitā publicēs tās pašas izmaiņas.
+% Protokolam jāpanāk, ka visas ļaunprātīgās virsotnes laika gaitā publicēs tās pašas izmaiņas.
 
 % Failu apmaiņa starp vienaudžiem (p2p), izmantojot BitTorrent protokolu, ir pierādījusi sevi kā praktiski necenzējamu sistēmu. Ja kāds fails tīklā kļūst populārs, tad ir pamats ticēt, ka tas nevar no turienes pazust. Veiksmīgākie mēģinājumi cīnīties pret dalīšanos BitTorrent tīklā ir saistīti ar uzbrukumiem tādiem serveriem, kas uztur sarakstu ar tīklā atrodamajiem failiem. Tomēr ir ieviesti strādājoši paplašinājumi BitTorrent protokolam, kas ļauj atrast failus decentralizētā vidē un iepriekšminētie serveri vairs nav nepieciešami.\cite{pouwelse08}
 
