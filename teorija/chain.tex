@@ -1,19 +1,48 @@
-% Trūkst vienotas definīcijas par to, kas ir ķēde vispārīgā kontekstā. 
 Tas ko sauc par ķēdi plašākā sabiedrībā tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
 Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr pa virsu šīm norēķinu sistēmām tiek veidoti arī citi servisi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram domēna vārdu reģistra, sertefikātu autoritātes, vēlēšanu un citi servisi.\cite{namecoin} Arī šīs tiek sauktas par ķēdēm.
 Turklāt esošās ķēžu implementācijas ir tik daudzveidīgas un ar atšķirīgu funkcionalitāti, ka ir grūti spriest kādās ir vispārīgas ķēdes īpašības.
-Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un Merkles koku. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
+Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un blokķēdē izmantotās datu struktūras. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
 
 \subsection{Digitāla valūta}
-% Ar digitālām valūtām ir saistītas sekojošas problēmas.
 Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids, kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
+
 Mūsdienās par patiesības avotu parasti kalpo kāda centrāla organizācija, piemēram Visa vai PayPal, tomēr vienots patiesības avots var būt arī jebkurš izkliedētas sistēmas dalībnieks, ja visi tās dalībnieki laika gaitā pieņems vienādu stāvokli.
 Ar parakstītu ziņojumu palīdzību ir iespējams izveidot autorizētus maksājuma pieprasījumus un šeit nav būtiskas atšķirības starp centralizētu un decentralizētu risinājumu. Savukārt sistēmai saņemot divus pieprasījumus no kuriem katrs atsevišķi ir derīgs, bet abi kopā izpildīties nevar, ir jāpieņem lēmums par to kurš izpildās un kurš ne.
+
 Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) algoritms, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
 Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būtu lietojams decentralizētā vidē.
 
-\subsection{Merkles koks}
-Šajā nodaļā aplūkosim datu struktūras, kas ļauj uzturēt nemaināmu vēsturi.
+\subsection{Datu struktūras}
+Šajā nodaļā aplūkosim datu struktūras, kas ļauj pārliecināties par datu integritāti. Pieņemsim, ka ir nepieciešams iegūt lielu datu apjomu un ir uzticams avots no kura iegūt hash vērtību pret kuru var pārbaudīt, ka dati nav mainīti. 
+
+Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto hash vērtību. Problēma šādā pieejā ir tāda, ka iegūstot nedaudz atšķirīgus datus tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
+
+Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad sarēķina hash no visām iepriekš iegūtajām hash vērtībām un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota.\ref{fig:hash-list} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.5]{teorija/hash-list.pdf}
+    \caption{Hash saraksts}
+    Dati tiek sadalīti vairākās daļās katrai daļai tiek aprēķināta hash vērtība. Saknes hash tiek aprēķināts no atsevišķo daļu hash vērtībām.
+\label{fig:hash-list}
+\end{figure}
+
+Tagad pirms sākt datu ieguvi tiek iegūts saraksts ar hash vērtībām sadalītajiem datiem. Ievēro, ka informācijas apjoms, kas jāpārsūta šajā gadījumā ir ievērojami mazāks par visu datu apjomu. Sarēķina vai hash no saraksta atbilst tam kas tiek iegūts no drošā avota, ja rodas nesakritība, tad ir skaidrs, ka nav vērts sākt pašu datu lejuplādi. Kad ir veiksmīgi iegūts pareizais hash saraksts, tad lejuplādi datiem var veikt no vairākiem avotiem prasot katram avotam savus datu gabaliņus, kā arī uzreiz izķert kļūdas.
+
+Līdzīgi mehānismi tiek izmantoti decentralizētos failu apmaiņas protokolos piemēram BitTorrent. Metode strādā ļoti labi, ja dati laika gaitā ir nemainīgi, tomēr mainīgiem datiem būtu neparocīgi katru reizi pārrēķināt galveno hash vērtību, jo tad tā ir jāmaina uzticamajam avotam. Aplūkosim metodi, kas ļauj ar nemainīgu galveno hash vērtību validēt datus, kuri regulāri tiek pagarināti, bet vēsture paliek nemainīga.
+
+Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un iepriekšējā bloka hash vērtības. Pats pirmais bloks, kas satur sākotnējo vērtību, nesatur sevī hash vērtību un šo bloku sauc arī par \textit{genesis block}. Datu struktūra ir līdzīga saistītajam sarakstam, bet atšķirība ir tāda, ka nav iespējams mainīt bloka saturu, vai ievietot pa vidu vēl kādu bloku.\ref{fig:hash-chain}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.5]{teorija/hash-chain.pdf}
+    \caption{Hash ķēde}
+    Katrs hash ķēdes ziņojums $m_i$ sastāv no sev raksturīgajiem datiem $d_i$ un
+    iepriekšējā posma $m_{i-1}$ hash vērtības.
+\label{fig:hash-chain}
+\end{figure}
+
+Piemēram, pamainot otrā bloka datu vērtību mainās bloka hash un tas vairs nesakrīt ar trešajā blokā ierakstīto hash vērtību. Savukārt izmainot trešajā blokā ierakstīto otrā bloka hash vērtību izmainās trešā bloka hash, salaužot ceturto bloku. Tātad, lai izmainītu datus blokā $i$ ir jāizmaina visi bloki, kuri seko $i$.
 
 \subsection{Izkliedētā skaitļošana (distributed computing)}
 Aprakstīsim Bizantijas vienošanās problēmu (Byzantine agreement, Byzantine generals problem).
