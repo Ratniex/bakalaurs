@@ -3,14 +3,23 @@ Aplūkosim Alisi un Bobu. Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas 
 Apmaiņu sauc par \textbf{godīgu}, ja pēc tās veikšanas visas puses ir ieguvušas vēlamos ziņojumus, vai arī neviena no pusēm nav ieguvusi papildus informāciju par ziņojumiem. Naiva apmaiņa ir sekojoša: Alise nosūta savu ziņojumu Bobam un tad Bobs nosūta savu ziņojumu Alisei. Šāda apmaiņa nav godīga, jo Bobs pēc ziņojuma saņemšanas var novirzīties no protokola un savu ziņojumu nesūtīt. Alisei un Bobam savā starpā sazinoties neizbēgami kāds no viņiem pirmais iegūs sev vēlamo ziņojumu un pārtrauks komunikāciju tapēc problēma nav atrisināma bez trešās puses iesaistīšanās apmaiņā.\cite{pagnia99}
 
 Vienkāršības labad veiksim sekojošus pieņēmumus.
-\begin{itemize}
+\begin{enumerate}
     \item Visi komunikācijas kanāli ir droši. Tos nenoklausās.
     \item Visi komunikācijas kanāli ir uzticami. Katrs ziņojums garantēti nonāk pie saņēmēja īsā laikā.
     \item Alise un Bobs ir vienojušies par globālo laiku $t_1$ pēc kura jebkurš nenosūtīts ziņojums tiek uzskatīti par novirzīšanos no protokola.
     \item Trešā puse katram saņemtajam ziņojumam garantēti dod parakstītu apstiprinājumu, ka ziņojums tika saņemts, kur apstiprinājums sastāv no globālā laika un saņemtā ziņojuma.
-\end{itemize}
+\end{enumerate}
+% uzrakstīt kko par ceturto punktu
 
-% aprakstīt klasifikāciju fair exchange problēmām un risināt parakstus
+Godīga apmaiņa ir nepieciešama dažādās praktiskās situācijās. Aplūkosim sekojošo klasifikāciju.\cite[p.~8]{asokan98}
+\begin{description}
+    \item[samaksa] Maksājums tiek apmainīts pret čeku.
+    \item[līgumu parakstīšana] Katra puse apmaina nenoliedzamu piekrišanu līgumam apmaiņā pret citu iesaistīto nenoliedzamu piekrišanu.
+    \item[ierakstītas vēstules] Ziņojums tiek apmainīts pret saņemšanas apstiprinājumu.
+    \item[barteris] Tiek apmainītas divas patvaļīgas lietas.
+\end{description}
+Mūsu gadījumā nebūs iespējams apmainīt lietas, kas jāpatur slepenībā. Tomēr samaksai un līgumu parakstīšanai ir triviāli risinājumi, kas balstās uz ķēdes. Turklāt līgumu parakstīšana ir interesanta, ja tiek aplūkoti ķēdes darbības principi, jo ķēde darbojas uz parakstītiem ziņojumiem.
+
 Aplūkosim konkrētu piemēru, kur Alise un Bobs ir vienojušies par līgumu $l$, kuru abi vēlas elektroniski parakstīt un katram no viņiem vajag otra parakstu. Pieņemsim, ka Alisei ir atslēgu pāris $k_a$, tad
 \begin{itemize}
     \item Ziņojums kuru vēlas Bobs: $m_a = s_a$, kur $(l, s_a) = Sig_{k_a}(l)$
@@ -28,20 +37,14 @@ Protokols, kas izpilda godīgu apmaiņu dotajā gadījumā ir šāds.
 Ja A vai B nenosūta savu ziņojumu, tad T pēc laika $t_1$ paziņo abiem, ka maiņa tiek atcelta. Ja T nosūta B ziņojumu $m_a$, bet A nenosūta neko, tad A uzzinot, ka B ir ieguvis parakstītu līgumu spēs pierādīt, ka T ir sazvērējies pret viņu. Fakts, ka A vēl ir jānoskaidro, ka B ir ieguvis parakstītu līgumu ir mazliet negodīgi pret A. Dotais protokols pieprasa ļoti augstu uzticību T gan no A, gan B. Ir izveidoti daudz labāki protokoli, kas neļauj T uzzināt $m_a$ un $m_b$ vērtības, turklāt liek T iejaukties tikai nepieciešamības gadījumā, tomēr nav novērsts nelielais negodīgums attiecībā pret A.\cite{asokan98}
 
 Atrastajos apmaiņas protokolos~\cite{asokan98,schunter00}% citation needed
-trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos datus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
+trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos ziņojumus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
 
-Autors piedāvā sekojošās definīcijas:
+Par ķēdi sauksim tādu trešo pusi, kurai izpildās īpašības:
 \begin{itemize}
-    \item Par \textbf{mezglu} sauc tādu trešo pusi, kas uztur kopu ar visiem saņemtajiem ziņojumiem un padara visus ziņojumus publiski pieejamus.
-    \item Par \textbf{žurnālu} sauc trešo pusi, kas uztur sakārtotu publiski pieejamu vēsturi
-        $H = {\{(\m, \s, \r)\}}^*$
-        ar parakstītiem ziņojumiem $(m,s,t)$,
-        kur sakārtojums tiek veikts pēc ziņojumu saņemšanas laika $t$.
-        Turklāt katrs derīgais parakstītais ziņojums tiek pievienots vēsturei.
-    \item Par \textbf{ķēdi} $(H, Con, \s\times L)$ sauc trešo pusi kur %$Con: (\m,\s) \rightarrow L$ vērtība ir atkarīga no ķēdes stāvokļa $l\in L$ un pēc katra saņemtā ziņojuma tiek veikta pārbaude $l + Con(m,s) > 0$ tad vēsture pagarinās un stāvoklis mainās no $l$ uz $l+Con(m,s)$. $L$ ir lineāra telpa.
-    % \item Žurnālu sauc par necenzētu, ja vienprātības funkcija $Con$ ir determinēta un publiski zināma.
-    % \item lietu sauc par pulksteņainu, ja con ir trešais parametrs t laiks
+    \item Tiek uzturēta brīvi pieejama vēsture ar veiktajām operācijām, sakārtota pēc laika.
+    \item Katrs saņemtais ziņojums, kas ir legāla operācija tiek pievienots vēsturei.
+    \item Ir definēta kopa ar kontiem un katram kontam ir definēta bilance.
+    \item Algoritms, kas nosaka, vai operācija ir legāla ir determinēts un publiski zināms.
 \end{itemize}
-Ķēdes definēšana kā viena no pusēm godīgas apmaiņas problēmā ir nepatīkams uzdevums, bet motivācija izvēlēties šādas definīcijas tiks aprakstīta nākamajā nodaļā.
 
-Aplūkojot ķēdi kā trešo pusi ir pamats ticēt, ka tā nespēj palīdzēt risināt godīgu apmaiņu, jo sūtot ziņojumus ķēdei tie kļūst pieejami jebkuram, tomēr tas netiks formāli pierādīts. Lai godīgu apmaiņu varētu veikt ar ķēdes palīdzību tiks uzlikti papildus nosacījumi uz apmaināmajiem ziņojumiem. Tā vietā, lai Alise un Bobs apmainītos ziņojumiem Bobs vēlas iegūt $m_a$, lai tas tiktu publicēts ķēdē un citādi ir bezvērtīgs. Tādā gadījumā Alise var priekšlaicīgi nolikt ķēdi tādā stāvoklī, lai $m_a$ publicēšana būtu iespējama tikai tad, ja tiek publicēts arī $m_b$.
+Aplūkojot ķēdi kā trešo pusi ir pamats ticēt, ka tā nespēj palīdzēt risināt godīgu apmaiņu, jo sūtot ziņojumus ķēdei tie kļūst pieejami jebkuram, tomēr tas netiks formāli pierādīts. Lai godīgu apmaiņu varētu veikt ar ķēdes palīdzību tiks uzlikti papildus nosacījumi uz apmaināmajiem ziņojumiem. Tā vietā, lai Alise un Bobs apmainītos ziņojumiem Bobs vēlas iegūt $m_a$, lai tas tiktu publicēts ķēdē un citādi ir bezvērtīgs. Tādā gadījumā Alise var priekšlaicīgi nostādīt ķēdi tā, lai $m_a$ publicēšana būtu iespējama tikai tad, ja tiek publicēts arī $m_b$.
