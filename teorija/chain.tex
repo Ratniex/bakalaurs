@@ -42,9 +42,13 @@ Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un
 \label{fig:hash-chain}
 \end{figure}
 
-Piemēram, pamainot otrā bloka datu vērtību mainās bloka hash un tas vairs nesakrīt ar trešajā blokā ierakstīto hash vērtību. Savukārt izmainot trešajā blokā ierakstīto otrā bloka hash vērtību izmainās trešā bloka hash, salaužot ceturto bloku. Tātad, lai izmainītu datus blokā $i$ ir jāizmaina visi bloki, kuri seko $i$.
+Piemēram, pamainot otrā bloka datu vērtību mainās bloka hash un tas vairs nesakrīt ar trešajā blokā ierakstīto hash vērtību. Savukārt izmainot trešajā blokā ierakstīto otrā bloka hash vērtību izmainās trešā bloka hash, salaužot ceturto bloku. Tātad, lai izmainītu datus blokā $i$ ir jāizmaina visi bloki, kuri seko $i$. Tieši šī datu struktūra tiek izmantota visās blokķēžu implementācijās.
 
 \subsection{Izkliedētā skaitļošana (distributed computing)}
+Izkliedētās skaitļošanas pirmssākumi meklējami failu apmaiņā starp vienaudžiem. Mūsdienās populārākais protokols šī mērķa sasniegšanai ir BitTorrent. Ja kāds fails tīklā kļūst populārs, tad ir pamats ticēt, ka tas nevar no turienes pazust, jo veiksmīgākie mēģinājumi cīnīties pret dalīšanos BitTorrent tīklā ir saistīti ar uzbrukumiem tādiem serveriem, kas uztur sarakstu ar tīklā atrodamajiem failiem. Tomēr ir ieviesti strādājoši paplašinājumi BitTorrent protokolam, kas pilda minēto serveru funkciju decentralizētā vidē.\cite{pouwelse08} Tā kā sistēma ir publiski pieejama un noturīga pret cenzūru, tad tā ir piemērota bāze decentralizētas finanšu infrastruktūras radīšanai. Atliek atrisināt problēmu, kur maksājuma pieprasījumiem jābūt vienā secībā, turklāt šī secība nedrīkst mainīties. Tehniskā līmenī ķēde risina tieši šo problēmu.
+
+Piebildīsim, ka ļaundariem paveras jauns uzbrukuma virziens, kas nebija aktuāls BitTorrent gadījumā, jo sistēmā kuru veidojam nedrīkst pieļaut, ka virsotnes ignorē legālas transakcijas, bet no otras puses ļaundaris var uzģenerēt lielu skaitu ar legālām transakcijām, efektīvi veicot DoS uzbrukumu. Vairums ķēžu risina šo problēmu iekasējot nelielu komisiju par katru transakciju.
+
 Aprakstīsim Bizantijas vienošanās problēmu (Byzantine agreement, Byzantine generals problem).
 Pieņemsim, ka ir sistēma kas sastāv no tīklā saslēgtiem datoriem, kuri sazinās savā starpā sūtot ziņojumus. Mērķis ir vienoties par koordinētu tālāko rīcību, kas ir atkarīga no ārējiem apstākļiem, kuri iepriekš nav zināmi. Uzdevumu padara grūtu tas, ka starp datoriem var būt arī tādi, kas ļaunprātīgi cenšas sabotēt vienotu rīcību.
 Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpašības.
@@ -52,14 +56,28 @@ Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpa
     \item Datoram izpildot algoritmu tiek pieņemts tāds pats lēmums, kā citiem datoriem, kuri izpilta algoritmu.
     \item Neliels daudzums ar ļaunprātīgiem datoriem nespēj ietekmēt pieņemto lēmumu.
 \end{enumerate}\cite{lamport82}
-Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsoni} (node), jo tie ir tīklā saslēgti vienlīdzīgi elementi. Veiksim arī citas nelielas modifikācijas
-Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits.
-Pieņemtais lēmums mūsu gadījumā ir virsgrāmatas stāvoklis.
-
-Tā kā darbojamies decentralizētā vidē, tad viens ļaundaris bez problēmām var izlikties par vairākām virsotnēm vienlaicīgi. Tādēļ otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
-Kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tapēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
+Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsoni} (node), jo šis termins tiek lietots ar ķēdēm saistītā literatūrā. Veiksim arī citas nelielas modifikācijas dotajam uzdevumam.
+Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits un viens ļaundaris var netraucēti izlikties par vairākām virsotnēm.
+Tādēļ arī otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
+Turklāt kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tapēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
 
 \subsubsection{Pierādījums ar darbu (Proof of work)}
+Virsotnes darbojas pēc sekojoša principa:\cite{nakamoto08}
+\begin{enumerate}
+    \item Jaunās transakcijas tiek paziņotas visām virsotnēm.
+    \item Katra virsotne izvēlas transakcijas kuras iekļaut jaunajā blokā.
+    \item Katra virotne risina skaitliski sarežģītu problēmu, kas padarītu izvēlēto bloku legālu.
+    \item Kad kāda virsotne atrisina problēmu, tad tā paziņo atrasto bloku visām pārējām virsotnēm.
+    \item Pārējās virsotnes pārbauda, vai atrastais bloks ir legāls.
+    \item Pārējās virsotnes turpina risināt sarežģīto problēmu pa virsu jaunajam blokam.
+\end{enumerate}
+Trešais punkts nodrošina to, ka ļaundarim nav vērts izlikties par vairākām virsotnēm, jo spēja radīt jaunus blokus ir proporcionāla skaitļošanas jaudai, bet ļaundara skaitļošanas jauda ir ierobežota.
+
+Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksim vidējo skaitļošanas darbu, kāds nepieciešams, lai atrastu visus blokus šajā ķēdē. Pareizā vēsture ir tā, kurai ir vislielākais svars. Par bloka atrašanu virsotnes īpašniekam palielinās bilance tapēc visas virsotnes ir motivētas taisīt jaunus blokus uz pareizās vēstures. Kad uz pareizās vēstures tiek atrasts bloks tās svars palielinās un šī vēsture kļūst vēl pareizāka. Ja divām vēsturēm ir līdzīgs svars, tad daļa no virsotnēm meklēs nākamo bloku uz vienas vēstures, bet daļa uz otras. Tai vēsturei, kurai pirmajai atradīs nākamo bloku būs ievērojami lielāks svars un tad visas virsotnes būs motivētas turpināt vienu vēsturi.
+
+Lai ļaundarim izdotos cenzēt transakciju blokā $i$ tad viņam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir patreizējā vēsturē. Ja ļaundarim ir mazāk kā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt patreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
+
+% uzrakstit kkādu diskusiju
 \subsubsection{Pierādījums ar risku (Proof of stake)}
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
 Papildināsim uzdevumu ar sekojošajām definīcijām.
@@ -80,33 +98,8 @@ Papildināsim uzdevumu ar sekojošajām definīcijām.
 \end{figure}
 
 \subsubsection{Pierādījums ar DDoS (Proof of DDoS)}
-% ielikt no stellar whitepaper bildi 7lpp
-
-% Protokolam jāpanāk, ka visas ļaunprātīgās virsotnes laika gaitā publicēs tās pašas izmaiņas.
-
-% Failu apmaiņa starp vienaudžiem (p2p), izmantojot BitTorrent protokolu, ir pierādījusi sevi kā praktiski necenzējamu sistēmu. Ja kāds fails tīklā kļūst populārs, tad ir pamats ticēt, ka tas nevar no turienes pazust. Veiksmīgākie mēģinājumi cīnīties pret dalīšanos BitTorrent tīklā ir saistīti ar uzbrukumiem tādiem serveriem, kas uztur sarakstu ar tīklā atrodamajiem failiem. Tomēr ir ieviesti strādājoši paplašinājumi BitTorrent protokolam, kas ļauj atrast failus decentralizētā vidē un iepriekšminētie serveri vairs nav nepieciešami.\cite{pouwelse08}
-
 
 % \begin{description}
-%     \item[Decentralizētas sistēmas] Torenti, Bizantijas ģenerāļu problēma, vienprātības nepieciešamība sakārtotas vēstures uzturēšanai.
 %         % torrenti, BGP, consensus nepieciešamība, anti spam nepieciešamība <- parakstu nepieciešamība
-%         \item[Digitālas valūtas]
-%         % double spending, te kļūst skaidrs, ka secība ir svarīga.
-%         % reusability
-%         \item[Blokķēdes realizācijas]
-%         % hash chain
-%         %% skip list
-%         %% merkle tree
-%         % consensus algorithms
-%         %% proof of work 
-%         %% proof of stake
-%         %% fba
-%         %% proof of ddos
-% \end{description}
 
-% pameklēt fair exchange blockchain
-% pameklēt blockchain abstraktu klasifikāciju iekš scholar
-% ja neizdodas tad definēt: forumu, izdevniecību, tirgu, necenzētu
-
-% viena no īpašībām ir spēja atrisināt Byzantine Generals Problem bet tas nav svarīgi šajā kontekstā
 % kas ir DA0
