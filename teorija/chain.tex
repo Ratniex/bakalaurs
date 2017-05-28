@@ -17,7 +17,7 @@ Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būt
 
 Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto hash vērtību. Problēma šādā pieejā ir tāda, ka iegūstot nedaudz atšķirīgus datus tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
 
-Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad sarēķina hash no visām iepriekš iegūtajām hash vērtībām un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota.\ref{fig:hash-list} 
+Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad sarēķina hash no visām iepriekš iegūtajām hash vērtībām un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota. Skatīt attēlu~\ref{fig:hash-list}.
 
 \begin{figure}[htpb]
     \centering
@@ -31,7 +31,7 @@ Tagad pirms sākt datu ieguvi tiek iegūts saraksts ar hash vērtībām sadalīt
 
 Līdzīgi mehānismi tiek izmantoti decentralizētos failu apmaiņas protokolos piemēram BitTorrent. Metode strādā ļoti labi, ja dati laika gaitā ir nemainīgi, tomēr mainīgiem datiem būtu neparocīgi katru reizi pārrēķināt galveno hash vērtību, jo tad tā ir jāmaina uzticamajam avotam. Aplūkosim metodi, kas ļauj ar nemainīgu galveno hash vērtību validēt datus, kuri regulāri tiek pagarināti, bet vēsture paliek nemainīga.
 
-Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un iepriekšējā bloka hash vērtības. Pats pirmais bloks, kas satur sākotnējo vērtību, nesatur sevī hash vērtību un šo bloku sauc arī par \textit{genesis block}. Datu struktūra ir līdzīga saistītajam sarakstam, bet atšķirība ir tāda, ka nav iespējams mainīt bloka saturu, vai ievietot pa vidu vēl kādu bloku.\ref{fig:hash-chain}
+Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un iepriekšējā bloka hash vērtības.\cite{nakamoto08} Pats pirmais bloks, kas satur sākotnējo vērtību, nesatur sevī hash vērtību un šo bloku sauc arī par \textit{genesis block}. Datu struktūra ir līdzīga saistītajam sarakstam, bet atšķirība ir tāda, ka nav iespējams mainīt bloka saturu, vai ievietot pa vidu vēl kādu bloku. Skatīt attēlu~\ref{fig:hash-chain}.
 
 \begin{figure}[htpb]
     \centering
@@ -54,22 +54,31 @@ Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpa
 \end{enumerate}\cite{lamport82}
 Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsoni} (node), jo tie ir tīklā saslēgti vienlīdzīgi elementi. Veiksim arī citas nelielas modifikācijas
 Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits.
-Pieņemtais lēmums mūsu gadījumā virsgrāmata.
+Pieņemtais lēmums mūsu gadījumā ir virsgrāmatas stāvoklis.
 
 Tā kā darbojamies decentralizētā vidē, tad viens ļaundaris bez problēmām var izlikties par vairākām virsotnēm vienlaicīgi. Tādēļ otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
 Kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tapēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
-% proof of work
-% proof of stake
-% fba
-% proof of ddos
 
 \subsubsection{Pierādījums ar darbu (Proof of work)}
 \subsubsection{Pierādījums ar risku (Proof of stake)}
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
 Papildināsim uzdevumu ar sekojošajām definīcijām.
-Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
-Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz ļaunprātīgo virsotņu sadarbību.
-Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
+\begin{itemize}
+    \item 
+        Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
+    \item 
+        Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz ļaunprātīgo virsotņu sadarbību.
+    \item 
+        Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.5]{teorija/node-fail.jpg}
+    \caption{Venna diagramma virsotņu stāvokļiem}
+\label{fig:node-fail}
+\end{figure}
+
 \subsubsection{Pierādījums ar DDoS (Proof of DDoS)}
 % ielikt no stellar whitepaper bildi 7lpp
 
