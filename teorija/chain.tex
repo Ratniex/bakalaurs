@@ -100,18 +100,19 @@ Jebkura ķēde, kas balstās uz proof-of-stake ir pakļauta vēsturiskiem uzbruk
     \item Viens konts var sekot līdzi un turpināt vairākus vēstures atzarus. Šo problēmu var risināt, ja konti tiek sodīti par vairāku vēsturu parakstīšanu.
     \item Kāds ļaundaris var veikt double-spending pirmoreiz iztērējot valūtu normālā veidā, bet vēlāk atzaroties no vēstures un radot vairākus blokus pēc kārtas izveidot garāku vēsturi, kas tiek pieņemta par pareizo. Šī problēma tiek risināta atsakoties no vēsturēm, kas ir atzarojušās pārāk sen, bet tad tiek izdarīts pieņēmums, ka ir viena vispārzināma pareizā vēsture un jaunpienācējiem ir nepieciešams šo vēsturi iegūt no kādas autoritatīvas virsotnes. Tādējādi sistēma ir vairāk centralizēta nekā proof-of-work gadījumā.\cite{poelstra15} Literatūrā šī problēma ir pazīstama ar nosaukumu `nothing at stake'.
 \end{itemize}
+Jāpiebilst, ka dalībniekiem ar lielām bilancēm ir ekonomiska motivācija negraut sistēmas uzticamību, jo viņi paši tajā ir ieguldījuši līdzekļus.
 
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
+Vairāku nesaistītu trešo pušu kopīga parakstīšanās, kā viens no vienprātības veidiem tika aplūkots jau Nakamoto darbā\cite{nakamoto08}, bet tika noraidīts, jo ir pārāk centralizēts. Tomēr ir aprakstīta arī teorija kad trešās puses var būt patvaļīgi daudz un savā starpā cita citu uzraudzīt.\cite{mazieres15}
+Lai virsotne gūtu ietekmi šajā sistēmā tad tās īpašniekam ir jāpārliecina citu ietekmīgu virsotņu īpašniekus par stabilu internetu un motivāciju darboties godīgi (ievērot vienprātības protokolu). Tādējādi virsotnes veido savstarpējas uzticības tīklu (federāciju) un pietiek dažiem godīgiem federācijas locekļiem, lai visi būtu spiesti būt godīgi. Līdzīgi kā proof-of-stake gadījumā jauniem dalībniekiem ir nepieciešams iegūt vēsturi no kādas trešās puses, bet vienas federācijas ietvaros vēsture nevar sadalīties divās daļās.
+
 Papildināsim uzdevumu ar sekojošajām definīcijām.
 \begin{itemize}
-    \item 
-        Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
-    \item 
-        Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz ļaunprātīgo virsotņu sadarbību.
-    \item 
-        Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
+    \item Virsotņu kopu sauc par \textbf{drošu}, ja katrām divām virsotnēm tās publicēs vienādas vērtības.
+    \item Virsotni sauc par \textbf{dzīvu}, ja spēj publicēt jaunas vērtības nepaļaujoties uz ļaunprātīgo virsotņu sadarbību.
+    \item Virsotņu kopu sauc par \textbf{pareizu}, ja tā ir droša un katra virsotne ir dzīva.
 \end{itemize}
-
+Visas virsotnes, kas neievēro protokolu ir nepareizas, tomēr arī tāda virsotne, kas ievēro protokolu var būt nepareiza, ja tā uzticas citām nepareizām virsotnēm. Var gadīties, ka tā patvaļīgi ilgi nespēj vienoties ar nepareizām virsotnēm, vai arī sliktākajā gadījumā publicēt vērtību, kas nebūs vienprātīga. Uzbrukums, kas padara virsotni nedrošu ir stiprāks par uzbrukumu, kas padara to nedzīvu. Skatīt attēlu~\ref{fig:node-fail}.
 \begin{figure}[htpb]
     \centering
     \includegraphics[scale=0.5]{teorija/node-fail.jpg}
@@ -119,9 +120,14 @@ Papildināsim uzdevumu ar sekojošajām definīcijām.
 \label{fig:node-fail}
 \end{figure}
 
-\subsubsection{Pierādījums ar DDoS (Proof of DDoS)}
+Par FBA $\bra{V}{Q}$ sauc virsotņu kopu $V$ kur katrai virsotnei $v\in V$ ir definētas kopas ar virsotnēm $Q(v)$, kas spēj pārliecināt $v$ par vienbalsību. Par \textbf{kvorumu} sauc kopu ar virsotnēm $U$, kurai izpildās īpašība
+\begin{equation*}
+    \forall v \in U \;\exists q \in Q(v) \;:\; q \subset U
+\end{equation*}
+Parastā Bizantijas vienošanās ir speciālgadījums, kad $\forall v_1,v_2\in V \;:\; Q(v_1) = Q(v_2)$ un nav jēgpilni runāt par nedzīvām vai nedrošām virsotnēm.
+Ja $\bra{V}{Q}$ visu kvorumu šķēlums ir netukšs tad saka, ka tai ir \textbf{vienots kvorums}. Pieņemsim, ka $V'\subset V$ ir visu godīgo virsotņu kopa un $Q'(v) = \left\{ x\cap V' | x\in Q(v) \right\}$, ja FBA $\bra{V'}{Q'}$ ir vienots kvorums, tad $\bra{V}{Q}$ spēs pieņemt vienotu lēmumu.\cite{mazieres15}
 
-% \begin{description}
-%         % torrenti, BGP, consensus nepieciešamība, anti spam nepieciešamība <- parakstu nepieciešamība
+\subsubsection{Citas vienprātības metodes}
+% ddos
+% proof of space
 
-% kas ir DA0
