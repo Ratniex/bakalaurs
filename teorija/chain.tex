@@ -78,7 +78,29 @@ Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksi
 Lai ļaundarim izdotos cenzēt transakciju blokā $i$ tad viņam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir patreizējā vēsturē. Ja ļaundarim ir mazāk kā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt patreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
 
 % uzrakstit kkādu diskusiju
-\subsubsection{Pierādījums ar risku (Proof of stake)}
+% pateikt, ka bitcoin ir tirgus lideris
+% ir teorētiski ļoti stiprs
+% problēma ar izniekoto darbu
+% problēma ar centralizāciju
+% problēma ar vēstures izmēru
+% problēma ar lēnumu
+\subsubsection{Pierādījums ar interesi (Proof of stake)}
+Metodes pamatā ir piešķirt nākamā bloka radīšanas tiesības kādam kontam pēc pseidogadījuma principa, kur varbūtība saņemt šīs tiesības ir proporcionāla konta bilancei. Ja konts saņem šīs tiesības, tad virsotne, kurai ir piekļuve kontam var to pierādīt demonstrējot derīgu parakstu. Izvēlētajam kontam jāpaspēj izveidot un publicēt bloku salīdzinoši īsā laikā, citādi tas netiek pieņemts. Tādējādi var veidoties vēstures sazarošanās, bet veidi kuros atrisināt konfliktu ir dažādi. Tipiski garākā ķēde tiek uzskatīta par pareizo.
+
+Pseidogadījuma ģenerators tiek iegūts no ķēdes vēstures. Tas paver iespējas patreizējā bloka veidotājam radīt tādu bloku, lai tas būtu arī nākamā bloka veidotājs. Rīkojoties tā atkārtoti, iespējams būt vienīgajam dalībniekam, kas veido blokus efektīvi centralizējot sistēmu. Literatūrā šī problēma ir pazīstama ar nosaukumu `stake grinding'. Ir piedāvāti vairāki risinājumi kā apiet problēmu.\cite{popov16,dannen17}
+\begin{itemize}
+    \item Piešķirt kontam tiesības saņemt tiesības radīt jaunus blokus apmaiņā pret komisijas maksu kriptovalūtā. Tādā veidā ķēdei ir zināms, kuri konti iesaistās bloku veidošanā un ir pamats tos sodīt bargāk, par nespēju veidot blokus.
+    \item Izmantot piemērotu proporcionalitātes funkciju, tādu, lai uzbrucējam palielinot savu (proporcionālo) kriptovalūtas daudzumu divas reizes viņa varbūtība radīt blokus palielinās mazāk, kā divas reizes.\cite{popov16} Tādā gadījumā ir nepieciešams ieviest minimālo bilanci, ar kuru drīkst radīt blokus.
+    \item Izvēlēties vairāk, kā vienu kontu priekš nākamā bloka radīšanas un pieņemt bloku tad, ja vairums no izvēlētajām virsotnēm ir kopīgi vienojušās par nākamo bloku. Tā kā viena virsotne nespēj uzspiest savu bloka izvēli pārējām un neizlēmības gadījumā zaudēs visas, tad virsotnēm visizdevīgāk ir vienoties par bloku ar vislielāko atlīdzību un neņemt vērā nākamā bloka radīšanas tiesības.
+    \item Neļaut vienam kontam radīt jaunus blokus pārāk bieži.
+\end{itemize}
+
+Jebkura ķēde, kas balstās uz proof-of-stake ir pakļauta vēsturiskiem uzbrukumiem, jo atšķirībā no proof-of-work bloku radīšana nav skaitliski sarežģīta.
+\begin{itemize}
+    \item Viens konts var sekot līdzi un turpināt vairākus vēstures atzarus. Šo problēmu var risināt, ja konti tiek sodīti par vairāku vēsturu parakstīšanu.
+    \item Kāds ļaundaris var veikt double-spending pirmoreiz iztērējot valūtu normālā veidā, bet vēlāk atzaroties no vēstures un radot vairākus blokus pēc kārtas izveidot garāku vēsturi, kas tiek pieņemta par pareizo. Šī problēma tiek risināta atsakoties no vēsturēm, kas ir atzarojušās pārāk sen, bet tad tiek izdarīts pieņēmums, ka ir viena vispārzināma pareizā vēsture un jaunpienācējiem ir nepieciešams šo vēsturi iegūt no kādas autoritatīvas virsotnes. Tādējādi sistēma ir vairāk centralizēta nekā proof-of-work gadījumā.\cite{poelstra15} Literatūrā šī problēma ir pazīstama ar nosaukumu `nothing at stake'.
+\end{itemize}
+
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
 Papildināsim uzdevumu ar sekojošajām definīcijām.
 \begin{itemize}
