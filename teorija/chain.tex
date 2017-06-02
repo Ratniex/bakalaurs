@@ -1,23 +1,24 @@
-Tas ko sauc par ķēdi plašākā sabiedrībā tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
-Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr pa virsu šīm norēķinu sistēmām tiek veidoti arī citi servisi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram domēna vārdu reģistra, sertefikātu autoritātes, vēlēšanu un citi servisi.\cite{namecoin} Arī šīs tiek sauktas par ķēdēm.
-Turklāt esošās ķēžu implementācijas ir tik daudzveidīgas un ar atšķirīgu funkcionalitāti, ka ir grūti spriest kādās ir vispārīgas ķēdes īpašības.
-Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un blokķēdē izmantotās datu struktūras. Beigās tiks aplūkotas konkrētas ķēdes realizācijas.
+Tas, ko sauc par ķēdi plašākā sabiedrībā, tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
+Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr pa virsu šīm norēķinu sistēmām tiek veidoti arī citi servisi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram, domēna vārdu reģistra, sertifikātu autoritātes, vēlēšanu un citi servisi.\cite{namecoin}
+Turklāt esošām ķēžu implementācijām ir tik daudzveidīga funkcionalitāte, ka ir grūti spriest, kādās ir vispārīgas ķēdes īpašības.
+Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un blokķēdē izmantotās datu struktūras. Beigās tiek aplūkotas konkrētas ķēdes realizācijas.
 
 \subsection{Digitāla valūta}
-Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids, kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
+Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet, tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala, kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
 
-Mūsdienās par patiesības avotu parasti kalpo kāda centrāla organizācija, piemēram Visa vai PayPal, tomēr vienots patiesības avots var būt arī jebkurš izkliedētas sistēmas dalībnieks, ja visi tās dalībnieki laika gaitā pieņems vienādu stāvokli.
-Ar parakstītu ziņojumu palīdzību ir iespējams izveidot autorizētus maksājuma pieprasījumus un šeit nav būtiskas atšķirības starp centralizētu un decentralizētu risinājumu. Savukārt sistēmai saņemot divus pieprasījumus no kuriem katrs atsevišķi ir derīgs, bet abi kopā izpildīties nevar, ir jāpieņem lēmums par to kurš izpildās un kurš ne.
+Mūsdienās par patiesības avotu parasti kalpo kāda centrāla organizācija, piemēram, Visa vai PayPal, tomēr vienots patiesības avots var būt arī jebkurš izkliedētas sistēmas dalībnieks, ja visi tās dalībnieki laika gaitā pieņems vienādu stāvokli.
+Ar parakstītu ziņojumu palīdzību ir iespējams izveidot autorizētus maksājuma pieprasījumus, un šeit nav būtiskas atšķirības starp centralizētu un decentralizētu risinājumu. Savukārt sistēmai saņemot divus pieprasījumus no kuriem katrs atsevišķi ir derīgs, bet abi kopā izpildīties nevar, ir jāpieņem lēmums: kurš izpildās un kurš ne.
 
-Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) algoritms, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
+Centralizētās sistēmās hronoloģiski pirmais pieprasījums tiktu izpildīts, bet vēlākais tiktu atteikts. Diemžēl decentralizētā gadījumā nav objektīva secība, kurā pienāk ziņojumi. Ir nepieciešams vienprātības (consensus) algoritms, kas garantēs, ka visi maksājuma pieprasījumi tiek sakārtoti vienādā secībā visiem dalībniekiem, nodrošinot arī vienādu virsgrāmatas stāvokli.
 Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būtu lietojams decentralizētā vidē.
 
 \subsection{Datu struktūras}
-Šajā nodaļā aplūkosim datu struktūras, kas ļauj pārliecināties par datu integritāti. Pieņemsim, ka ir nepieciešams iegūt lielu datu apjomu un ir uzticams avots no kura iegūt hash vērtību pret kuru var pārbaudīt, ka dati nav mainīti. 
+Šajā nodaļā aplūkosim datu struktūras, kas ļauj pārliecināties par datu integritāti. Pieņemsim, ka ir nepieciešams iegūt lielu datu apjomu un ir uzticams avots, no kura iegūt hash vērtību, pret kuru var pārbaudīt, ka dati nav mainīti. 
+%kas ir hash?
 
-Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto hash vērtību. Problēma šādā pieejā ir tāda, ka iegūstot nedaudz atšķirīgus datus tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
+Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto hash vērtību. Problēma šādā pieejā ir tāda, ka, iegūstot nedaudz atšķirīgus datus, tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
 
-Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad sarēķina hash no visām iepriekš iegūtajām hash vērtībām un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota. Skatīt attēlu~\ref{fig:hash-list}.
+Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad tiek aprēķināts hash no visām iepriekš iegūtajām hash vērtībām, un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota. Skatīt attēlu~\ref{fig:hash-list}.
 
 \begin{figure}[htpb]
     \centering
@@ -27,11 +28,11 @@ Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtī
 \label{fig:hash-list}
 \end{figure}
 
-Tagad pirms sākt datu ieguvi tiek iegūts saraksts ar hash vērtībām sadalītajiem datiem. Ievēro, ka informācijas apjoms, kas jāpārsūta šajā gadījumā ir ievērojami mazāks par visu datu apjomu. Sarēķina vai hash no saraksta atbilst tam kas tiek iegūts no drošā avota, ja rodas nesakritība, tad ir skaidrs, ka nav vērts sākt pašu datu lejuplādi. Kad ir veiksmīgi iegūts pareizais hash saraksts, tad lejuplādi datiem var veikt no vairākiem avotiem prasot katram avotam savus datu gabaliņus, kā arī uzreiz izķert kļūdas.
+Tagad pirms sākt datu ieguvi tiek iegūts saraksts ar hash vērtībām sadalītajiem datiem. Ievēro, ka informācijas apjoms, kas jāpārsūta šajā gadījumā ir ievērojami mazāks par visu datu apjomu. Sarēķina, vai hash no saraksta atbilst tam, kas tiek iegūts no drošā avota, ja rodas nesakritība, tad ir skaidrs, ka nav vērts sākt pašu datu lejuplādi. Kad ir veiksmīgi iegūts pareizais hash saraksts, tad lejupielādi datiem var veikt no vairākiem avotiem, katram avotam prasot savus datu gabaliņus, kā arī uzreiz izķerot kļūdas.
 
-Līdzīgi mehānismi tiek izmantoti decentralizētos failu apmaiņas protokolos piemēram BitTorrent. Metode strādā ļoti labi, ja dati laika gaitā ir nemainīgi, tomēr mainīgiem datiem būtu neparocīgi katru reizi pārrēķināt galveno hash vērtību, jo tad tā ir jāmaina uzticamajam avotam. Aplūkosim metodi, kas ļauj ar nemainīgu galveno hash vērtību validēt datus, kuri regulāri tiek pagarināti, bet vēsture paliek nemainīga.
+Līdzīgi mehānismi tiek izmantoti decentralizētos failu apmaiņas protokolos piemēram, BitTorrent. Metode strādā ļoti labi, ja dati laika gaitā ir nemainīgi, tomēr mainīgiem datiem būtu neparocīgi katru reizi pārrēķināt galveno hash vērtību, jo tad tā ir jāmaina uzticamajam avotam. Aplūkosim metodi, kas ļauj ar nemainīgu galveno hash vērtību validēt datus, kuri regulāri tiek pagarināti, bet vēsture paliek nemainīga.
 
-Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un iepriekšējā bloka hash vērtības.\cite{nakamoto08} Pats pirmais bloks, kas satur sākotnējo vērtību, nesatur sevī hash vērtību un šo bloku sauc arī par \textit{genesis block}. Datu struktūra ir līdzīga saistītajam sarakstam, bet atšķirība ir tāda, ka nav iespējams mainīt bloka saturu, vai ievietot pa vidu vēl kādu bloku. Skatīt attēlu~\ref{fig:hash-chain}.
+Aplūkojamā datu struktūra sastāv no blokiem, kuri sastāv no datiem un iepriekšējā bloka hash vērtības.\cite{nakamoto08} Pats pirmais bloks, kas satur sākotnējo vērtību, nesatur sevī hash vērtību, un šo bloku sauc arī par \textit{genesis block}. Datu struktūra ir līdzīga saistītajam sarakstam, bet atšķirība ir tāda, ka nav iespējams mainīt bloka saturu vai ievietot pa vidu vēl kādu bloku. Skatīt attēlu~\ref{fig:hash-chain}.
 
 \begin{figure}[htpb]
     \centering
@@ -42,7 +43,7 @@ Aplūkojamā datu struktūra sastāv no blokiem, kuri paši sastāv no datiem un
 \label{fig:hash-chain}
 \end{figure}
 
-Piemēram, pamainot otrā bloka datu vērtību mainās bloka hash un tas vairs nesakrīt ar trešajā blokā ierakstīto hash vērtību. Savukārt izmainot trešajā blokā ierakstīto otrā bloka hash vērtību izmainās trešā bloka hash, salaužot ceturto bloku. Tātad, lai izmainītu datus blokā $i$ ir jāizmaina visi bloki, kuri seko $i$. Tieši šī datu struktūra tiek izmantota visās blokķēžu implementācijās.
+Piemēram, pamainot otrā bloka datu vērtību, mainās bloka hash, un tas vairs nesakrīt ar trešajā blokā ierakstīto hash vērtību. Savukārt, izmainot trešajā blokā ierakstīto otrā bloka hash vērtību, izmainās trešā bloka hash, salaužot ceturto bloku. Tātad, lai izmainītu datus blokā $i$ ir jāizmaina visi bloki, kuri seko $i$. Tieši šī datu struktūra tiek izmantota visās blokķēžu implementācijās.
 
 \subsection{Izkliedētā skaitļošana (distributed computing)}
 Izkliedētās skaitļošanas pirmssākumi meklējami failu apmaiņā starp vienaudžiem. Mūsdienās populārākais protokols šī mērķa sasniegšanai ir BitTorrent. Ja kāds fails tīklā kļūst populārs, tad ir pamats ticēt, ka tas nevar no turienes pazust, jo veiksmīgākie mēģinājumi cīnīties pret dalīšanos BitTorrent tīklā ir saistīti ar uzbrukumiem tādiem serveriem, kas uztur sarakstu ar tīklā atrodamajiem failiem. Tomēr ir ieviesti strādājoši paplašinājumi BitTorrent protokolam, kas pilda minēto serveru funkciju decentralizētā vidē.\cite{pouwelse08} Tā kā sistēma ir publiski pieejama un noturīga pret cenzūru, tad tā ir piemērota bāze decentralizētas finanšu infrastruktūras radīšanai. Atliek atrisināt problēmu, kur maksājuma pieprasījumiem jābūt vienā secībā, turklāt šī secība nedrīkst mainīties. Tehniskā līmenī ķēde risina tieši šo problēmu.
@@ -57,9 +58,9 @@ Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpa
     \item Neliels daudzums ar ļaunprātīgiem datoriem nespēj ietekmēt pieņemto lēmumu.
 \end{enumerate}\cite{lamport82}
 Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsoni} (node), jo šis termins tiek lietots ar ķēdēm saistītā literatūrā. Veiksim arī citas nelielas modifikācijas dotajam uzdevumam.
-Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits un viens ļaundaris var netraucēti izlikties par vairākām virsotnēm.
+Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies, un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim, ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits un viens ļaundaris var netraucēti izlikties par vairākām virsotnēm.
 Tādēļ arī otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
-Turklāt kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tapēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
+Turklāt kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tāpēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
 
 \subsubsection{Pierādījums ar darbu (Proof of work)}
 Virsotnes darbojas pēc sekojoša principa:\cite{nakamoto08}
@@ -73,9 +74,9 @@ Virsotnes darbojas pēc sekojoša principa:\cite{nakamoto08}
 \end{enumerate}
 Trešais punkts nodrošina to, ka ļaundarim nav vērts izlikties par vairākām virsotnēm, jo spēja radīt jaunus blokus ir proporcionāla skaitļošanas jaudai, bet ļaundara skaitļošanas jauda ir ierobežota.
 
-Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksim vidējo skaitļošanas darbu, kāds nepieciešams, lai atrastu visus blokus šajā ķēdē. Pareizā vēsture ir tā, kurai ir vislielākais svars. Par bloka atrašanu virsotnes īpašniekam palielinās bilance tapēc visas virsotnes ir motivētas taisīt jaunus blokus uz pareizās vēstures. Kad uz pareizās vēstures tiek atrasts bloks tās svars palielinās un šī vēsture kļūst vēl pareizāka. Ja divām vēsturēm ir līdzīgs svars, tad daļa no virsotnēm meklēs nākamo bloku uz vienas vēstures, bet daļa uz otras. Tai vēsturei, kurai pirmajai atradīs nākamo bloku būs ievērojami lielāks svars un tad visas virsotnes būs motivētas turpināt vienu vēsturi.
+Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksim vidējo skaitļošanas darbu, kāds nepieciešams, lai atrastu visus blokus šajā ķēdē. Pareizā vēsture ir tā, kurai ir vislielākais svars. Par bloka atrašanu virsotnes īpašniekam palielinās bilance tāpēc visas virsotnes ir motivētas taisīt jaunus blokus uz pareizās vēstures. Kad uz pareizās vēstures tiek atrasts bloks tās svars palielinās un šī vēsture kļūst vēl pareizāka. Ja divām vēsturēm ir līdzīgs svars, tad daļa no virsotnēm meklēs nākamo bloku uz vienas vēstures, bet daļa uz otras. Tai vēsturei, kurai pirmajai atradīs nākamo bloku būs ievērojami lielāks svars un tad visas virsotnes būs motivētas turpināt vienu vēsturi.
 
-Lai ļaundarim izdotos cenzēt transakciju blokā $i$ tad viņam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir patreizējā vēsturē. Ja ļaundarim ir mazāk kā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt patreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
+Lai ļaundarim izdotos cenzēt transakciju blokā $i$ tad viņam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir pašreizējā vēsturē. Ja ļaundarim ir mazāk nekā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt pašreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
 
 % uzrakstit kkādu diskusiju
 % pateikt, ka bitcoin ir tirgus lideris
