@@ -9,9 +9,9 @@ Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
     \item[$Dec$]Atšifrēšanas algoritms
 \end{description}
 
-Par asimetrisku, jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts izmantot publisko atslēgu, bet atšifrēšanas algoritmam privāto. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
+Par asimetrisku jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts izmantot publisko atslēgu, bet atšifrēšanas algoritmam - privāto. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
 
-\textbf{Varbūtisks algoritms}, jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritmu sauc par \textbf{efektīvu}, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk kā $P(n)$ soļos. Varbūtiska algoritma rezultāts ir gadījuma lielums.
+\textbf{Varbūtisks algoritms} jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna, kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas, pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritmu sauc par \textbf{efektīvu}, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk nekā $P(n)$ soļos. Varbūtiska algoritma rezultāts ir gadījuma lielums.
 
 Varbūtisks algoritms $\a$ \textbf{izrēķina} funkciju $f$, ja
 $$ \forall x : \quad P[\a(x) = f(x)] = 1 $$
@@ -19,32 +19,32 @@ Praksē tiek izmantoti arī algoritmi, kas retos gadījumos kļūdās, bet šī 
 
 Kriptosistēmu sauc par efektīvu, ja izpildās īpašības:
 \begin{enumerate}
-    \item $k \leftarrow Gen(1^n)$ ir \ppt, kas izveido atslēgu $k$ jebkurai $n\in\n$ vērtībai.
-    \item $c \leftarrow Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkurai atslēgai $k$ un ziņojumam $m$.
-    \item $m \leftarrow Dec_k(c)$ ir \ppt, kas dotam $k$ atšifrē ziņojumu $c$.
-    \item Izpildās īpašība, ka visiem ziņojumiem tiek atšifrēts tas pats kas tika nošifrēts.
+    \item $Gen(1^n)$ ir \ppt, kas izveido atslēgu $k$ jebkurai $n\in\n$ vērtībai.
+    \item $Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkurai atslēgai $k$ un ziņojumam $m$.
+    \item $Dec_k(c)$ ir \ppt, kas dotam $k$ atšifrē ziņojumu $c$.
+    \item Visiem ziņojumiem tiek atšifrēts tas pats, kas tika nošifrēts.
         $$ \forall n\in\n, m\in\m \quad P[k\leftarrow Gen(1^n): Dec_k(Enc_k(m)) = m] = 1 $$
 \end{enumerate}
 
-Par \textbf{pretinieku} sauc \ppt{}  kurš kā ievaddatus saņem kriptosistēmu, publisko atslēgu un drošuma parametru $1^n$.
+Par \textbf{pretinieku} sauc \ppt{}, kurš kā ievaddatus saņem kriptosistēmu, publisko atslēgu un drošuma parametru $1^n$.
 
-Jebkurai kriptosistēmai prasa, lai no dotiem $m\in\m$ un $k\in\k$ būtu iespējams efektīvi ģenerēt šifrtekstu $c$. Kā arī, lai no jebkura $c$ nevarētu noskaidrot $k$ vai $m$.
+Jebkurai kriptosistēmai prasa, lai no dotiem $m\in\m$ un $k\in\k$ būtu iespējams efektīvi ģenerēt šifrtekstu $c$, kā arī, lai no jebkura $c$ nebūtu iespējams noskaidrot $k$ vai $m$.
 
-Par \textbf{vienvirziena funkciju} $f$ sauc tādu, kurai eksistē \ppt{} $\mathcal{C}$ kas aprēķina $f$, bet neeksistē \ppt{} $\a$ kuram 
+Par \textbf{vienvirziena funkciju} $f$ sauc tādu, kurai eksistē \ppt{} $\mathcal{C}$, kas aprēķina $f$, bet neeksistē \ppt{} $\a$, kuram 
 $$ \forall y \in \text{Ran}(f): P[f(\a(y)) = y] = 1 $$
-Vispārīga kriptogrāfijas teorija daudz balstās uz vienvirziena funkcijām un tām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiska vērtība.
+Vispārīga kriptogrāfijas teorija daudz balstās uz vienvirziena funkcijām, un tām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiskā vērtība.
 
-Par jaucējfunkciju (hash function) sauc vienvirziena funkciju $h: \oi^* \to \oi^n$, kurai ir izpildās noturība pret sadursmēm. 
+Par jaucējfunkciju (hash function) sauc vienvirziena funkciju $h: \oi^* \to \oi^n$, kurai izpildās noturība pret sadursmēm. 
 \begin{equation*}
     P[x, y \leftarrow \a : h(x) = h(y)] = 0
 \end{equation*}
 kur $\a$ ir pretinieks un $x\neq y$.
 
-Par \textbf{parakstu sistēmu} sauc kortežu $(\m, \k, Gen, Sig, Ver)$ kuram izpildās
+Par \textbf{parakstu sistēmu} sauc kortežu $(\m, \k, Gen, Sig, Ver)$, kuram izpildās
 \begin{equation*}
     \forall m \in \m \;:\; P[k \leftarrow Gen: Ver_k(m, Sig_k(m))=\t] = 1
 \end{equation*}
-Šeit $\m$ ir ziņojumu telpa, $\k$ ir atslēgu telpa, $Gen$ ir atslēgu ģenerēšanas algoritms, $Sig$ ir parakstīšanas algoritms un $Ver$ ir paraksta pārbaudīšanas algoritms. Līdzīgi, kā kriptosistēmu gadījumā $k$ sastāv no slepenās atslēgas $k_s$, kuru izmanto parakstītājs un publiskās atslēgas $k_p$, kuru izmanto paraksta pārbaudei. Algoritma $Ver$ vērtību apgabals sastāv no divām vērtībām \textemdash{} derīgs $\t$ un nederīgs $\f$.
+Šeit $\m$ ir ziņojumu telpa, $\k$ ir atslēgu telpa, $Gen$ ir atslēgu ģenerēšanas algoritms, $Sig$ ir parakstīšanas algoritms un $Ver$ ir paraksta pārbaudīšanas algoritms. Līdzīgi kā kriptosistēmu gadījumā $k$ sastāv no slepenās atslēgas $k_s$, kuru izmanto parakstītājs, un publiskās atslēgas $k_p$, kuru izmanto paraksta pārbaudei. Algoritma $Ver$ vērtību apgabals sastāv no divām vērtībām \textemdash{} derīgs $\t$ un nederīgs $\f$.
 
 Par \textbf{parakstītu ziņojumu} sauc pāri $(m, s)$, kur $m\in \m$ ir ziņojums, bet $s$ ir paraksts. Atslēgu $k$ sauc par parakstītāju. Parakstītu ziņojumu $(m,s)$ sauc par derīgu, ja $Ver(m,s) =\t$.
 
@@ -52,7 +52,8 @@ Parakstu sistēmu sauc par drošu, ja
 \begin{equation*}
     P[k \leftarrow Gen; (m,s) \leftarrow \a (k_p)\;:\; m\ni Q \wedge Ver_k(m,s) =\t] = 0
 \end{equation*}
-kur $\a$ ir pretinieks kuram pieejams orākuls, kas saņemot $m$ atbild ar $Sig_k(m)$, bet $Q$ ir saraksts ar jautājumiem, kuri tika uzdoti orākulam.\cite[p.~135]{pass10}
+kur $\a$ ir pretinieks, kuram pieejams orākuls, kas, saņemot $m$, atbild ar $Sig_k(m)$, bet $Q$ ir saraksts ar jautājumiem, kuri tika uzdoti orākulam.\cite[p.~135]{pass10}
+%paskaidrojums, kas ir orākuls
 
 No kriptosistēmas $(\m', \k', Gen', Enc, Dec)$ un jaucējfunkcijas $h$ var uzkonstruēt parakstu sistēmu $(\m, \k, Gen, Sig, Ver)$
 \begin{align*}
@@ -66,4 +67,4 @@ No kriptosistēmas $(\m', \k', Gen', Enc, Dec)$ un jaucējfunkcijas $h$ var uzko
         \f, &\text{citādi}
     \end{cases}
 \end{align*}
-Ievēro, ka parakstu sistēmas privātā atslēga ir kriptosistēmas publiskā un otrādi, tapēc no kriptosistēmas papildus nepieciešams nosacījums, ka no slepenās atslēgas un nošifrētiem ziņojumiem nevar izskaitļot publisko atslēgu.
+Ievēro, ka parakstu sistēmas privātā atslēga ir kriptosistēmas publiskā un otrādi, tāpēc no kriptosistēmas papildus nepieciešams nosacījums, ka no slepenās atslēgas un nošifrētiem ziņojumiem nevar izskaitļot publisko atslēgu.
