@@ -95,16 +95,16 @@ Pseidogadījuma ģenerators tiek iegūts no ķēdes vēstures. Tas paver iespēj
     \item Neļaut vienam kontam radīt jaunus blokus pārāk bieži.
 \end{itemize}
 
-Jebkura ķēde, kas balstās uz proof-of-stake ir pakļauta vēsturiskiem uzbrukumiem, jo atšķirībā no proof-of-work bloku radīšana nav skaitliski sarežģīta.
+Jebkura ķēde, kas balstās uz \textit{proof-of-stake} ir pakļauta vēsturiskiem uzbrukumiem, jo atšķirībā no \textit{proof-of-work} bloku radīšana nav skaitliski sarežģīta.
 \begin{itemize}
     \item Viens konts var sekot līdzi un turpināt vairākus vēstures atzarus. Šo problēmu var risināt, ja konti tiek sodīti par vairāku vēsturu parakstīšanu.
-    \item Kāds ļaundaris var veikt double-spending pirmoreiz iztērējot valūtu normālā veidā, bet vēlāk atzaroties no vēstures un radot vairākus blokus pēc kārtas izveidot garāku vēsturi, kas tiek pieņemta par pareizo. Šī problēma tiek risināta atsakoties no vēsturēm, kas ir atzarojušās pārāk sen, bet tad tiek izdarīts pieņēmums, ka ir viena vispārzināma pareizā vēsture un jaunpienācējiem ir nepieciešams šo vēsturi iegūt no kādas autoritatīvas virsotnes. Tādējādi sistēma ir vairāk centralizēta nekā proof-of-work gadījumā.\cite{poelstra15} Literatūrā šī problēma ir pazīstama ar nosaukumu `nothing at stake'.
+    \item Kāds ļaundaris var veikt double-spending pirmoreiz iztērējot valūtu normālā veidā, bet vēlāk atzaroties no vēstures un radot vairākus blokus pēc kārtas izveidot garāku vēsturi, kas tiek pieņemta par pareizo. Šī problēma tiek risināta atsakoties no vēsturēm, kas ir atzarojušās pārāk sen, bet tad tiek izdarīts pieņēmums, ka ir viena vispārzināma pareizā vēsture un jaunpienācējiem ir nepieciešams šo vēsturi iegūt no kādas autoritatīvas virsotnes. Tādējādi sistēma ir vairāk centralizēta nekā \textit{proof-of-work} gadījumā.\cite{poelstra15} Literatūrā šī problēma ir pazīstama ar nosaukumu `nothing at stake'.
 \end{itemize}
 Jāpiebilst, ka dalībniekiem ar lielām bilancēm ir ekonomiska motivācija negraut sistēmas uzticamību, jo viņi paši tajā ir ieguldījuši līdzekļus.
 
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
 Vairāku nesaistītu trešo pušu kopīga parakstīšanās, kā viens no vienprātības veidiem tika aplūkots jau Nakamoto darbā\cite{nakamoto08}, bet tika noraidīts, jo ir pārāk centralizēts. Tomēr ir aprakstīta arī teorija kad trešās puses var būt patvaļīgi daudz un savā starpā cita citu uzraudzīt.\cite{mazieres15}
-Lai virsotne gūtu ietekmi šajā sistēmā tad tās īpašniekam ir jāpārliecina citu ietekmīgu virsotņu īpašniekus par stabilu internetu un motivāciju darboties godīgi (ievērot vienprātības protokolu). Tādējādi virsotnes veido savstarpējas uzticības tīklu (federāciju) un pietiek dažiem godīgiem federācijas locekļiem, lai visi būtu spiesti būt godīgi. Līdzīgi kā proof-of-stake gadījumā jauniem dalībniekiem ir nepieciešams iegūt vēsturi no kādas trešās puses, bet vienas federācijas ietvaros vēsture nevar sadalīties divās daļās.
+Lai virsotne gūtu ietekmi šajā sistēmā tad tās īpašniekam ir jāpārliecina citu ietekmīgu virsotņu īpašniekus par stabilu internetu un motivāciju darboties godīgi (ievērot vienprātības protokolu). Tādējādi virsotnes veido savstarpējas uzticības tīklu (federāciju) un pietiek dažiem godīgiem federācijas locekļiem, lai visi būtu spiesti būt godīgi. Līdzīgi kā \textit{proof-of-stake} gadījumā jauniem dalībniekiem ir nepieciešams iegūt vēsturi no kādas trešās puses, bet vienas federācijas ietvaros vēsture nevar sadalīties divās daļās.
 
 Papildināsim uzdevumu ar sekojošajām definīcijām.
 \begin{itemize}
@@ -126,8 +126,11 @@ Par FBA $\bra{V}{Q}$ sauc virsotņu kopu $V$ kur katrai virsotnei $v\in V$ ir de
 \end{equation*}
 Parastā Bizantijas vienošanās ir speciālgadījums, kad $\forall v_1,v_2\in V \;:\; Q(v_1) = Q(v_2)$ un nav jēgpilni runāt par nedzīvām vai nedrošām virsotnēm.
 Ja $\bra{V}{Q}$ visu kvorumu šķēlums ir netukšs tad saka, ka tai ir \textbf{vienots kvorums}. Pieņemsim, ka $V'\subset V$ ir visu godīgo virsotņu kopa un $Q'(v) = \left\{ x\cap V' | x\in Q(v) \right\}$, ja FBA $\bra{V'}{Q'}$ ir vienots kvorums, tad $\bra{V}{Q}$ spēs pieņemt vienotu lēmumu.\cite{mazieres15}
+% uzrakstīt diskusiju
+% virsotnēm nav ekonomiskas iniciatīvas uzturēt sistēmu
 
-\subsubsection{Citas vienprātības metodes}
-% ddos
-% proof of space
+\subsubsection{Proof-of-work alternatīvas}
+Galvenokārt alternatīvas tiek meklētas, jo \textit{proof-of-work} uzturēšana prasa daudz elekrtoenerģijas, bet izmantojot vienprātības algoritmus, kuri nebalstās uz sarežģītu problēmu risināšanu ķēde tiek pakļauta uz vēstures balstītiem uzbrukumiem. Viena no alternatīvām ir izmantot uzdevumus, kuru risināšana aizņem daudz vietas atmiņā, bet nav tik skaitliski ietilpīga.\cite{dziembowski15} Tādējādi tiek risināta ne tikai elekrtoenerģijas patēriņa problēma, bet arī centralizācijas problēmu, jo ar specializētām iekārtām nevar iegūt vērā ņemamu priekšrocību. Šādi algoritmi pazīstami ar nosaukumu \textit{proof-of-space} vai \textit{proof-of-storage}.
+
+Vēl citas savdabīgas metodes balstās uz interneta joslas platumu, kā ierobežotu resursu. Viena no tām ir \textit{proof-of-DDoS}, kurā virsotnes pēc cita algoritma vienojas kuram tīmekļa serverim uzbrukt un tad veic uz šo serveri atkārtotus savienojuma pieprasījumus, līdz ir iegūts savienojuma apstiprinājums ar vēlamām īpašībām, piemēram hash vērtība ir mazāka par noteiktu vērtību. Šī metode balstās uz citām centralizācijas problēmām, kā TLS sertifikātu autoritātēm priekš domēnu validēšanas un tiek izdarīts pieņēmums, ka DDoS uzbrukuma upuris nesadarbojas ar kādu konkrētu virsotni.\cite{wustrow16}
 
