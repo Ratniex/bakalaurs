@@ -1,0 +1,33 @@
+% uzzīmēt apmaiņas shēmu
+% vienai no ķēdēm ir nepieciešama spēja iesaldēt valūtu
+% valūtu simboliskā nozīme
+Pieņemsim, ka apmaiņu veic Alise un Bobs un vēl ir divas ķēdes C un D. Alisei ir kriptovalūta uz ķēdes C un Bobam ir kriptovalūta uz ķēdes D. Alise un Bobs vēlas apmainīties ar kriptovalūtām un viņi to var izdarīt publicējot ziņojumus uz ķēdēm. Apskatīsim protokolu, kas radies interneta forumos\cite{nolan13}, bet labāk aprakstīts un izmantots vēlākā darbā\cite{back14}. Lai izmantotu metodi nepieciešams nosacījums, ka abām ķēdēm ir aptuvens globālais laiks un transakcijas ir iespējams konstruēt tā, lai to derīgums būtu atkarīgs no ķēdes laika. Tas nepieciešams, lai līdzekļus uz ķēdes varētu iesaldēt.
+\begin{enumerate}
+    \item Alise izvēlas patvaļīgu skaitli $x$.
+    \item Alise izveido uz ķēdes C jaunu kontu $T1$ un uzstāda tam sekojošus noteikumus.
+        \begin{itemize}
+            \item Ja ķēdes laiks ir pārsniedzis laiku, kas ir 48 stundas tālā nākotnē no šī brīža, tad visu valūtu no šī konta var pārskaitīt uz Alises kontu.
+            \item Ja tiek demonstrēts tāds $x'$, ka $h(x') = h(x)$ tad valūtu no šī konta var pārskaitīt uz Boba kontu.
+            \item Kontam pašam nav tiesību pārvietot savus līdzekļus.
+        \end{itemize}
+        Tādējādi Bobs var iegūt līdzekļus uz šī konta, ja viņš mazāk kā 48 stundu laikā noskaidro $x$.
+    \item Alise pārskaita no sava konta uz $T1$ attiecīgo kriptovalūtas daudzumu.
+    \item Bobs no $T1$ uzzina vērtību $h(x)$.
+    \item Bobs izveido uz ķēdes D jaunu kontu $T2$ ar noteikumiem:
+        \begin{itemize}
+            \item Ja ķēdes laiks ir pārsniedzis laiku, kas ir 24 stundas tālā nākotnē no šī brīža, tad visu valūtu no šī konta var pārskaitīt uz Boba kontu.
+            \item Ja tiek demonstrēts tāds $x'$, ka $h(x') = h(x)$ tad valūtu no šī konta var pārskaitīt uz Alises kontu.
+            \item Kontam pašam nav tiesību pārvietot savus līdzekļus.
+        \end{itemize}
+    \item Bobs pārskaita uz $T2$ attiecīgo valūtas daudzumu.
+    \item Alise uz ķēdes D demonstrē $x$ vērtību, tādējādi valūta no $T2$ tiek pārskaitīta uz Alises kontu ķēdē D.
+    \item Bobs sekojot līdzi ķēdes D transakcijām noskaidro $x$.
+    \item Bobs izmanto $x$, lai uz ķēdes C iegūtu valūtu no $T1$.
+\end{enumerate}
+Kad Alise demonstrē $x$ vērtību uz ķēdes Bobam ir vismaz 24 stundas laika, lai iegūtu valūtu uz ķēdes C.
+Bobs var pārbaudīt D ķēdes stāvokli vēlāk, kā 24, bet ātrāk kā 48 stundas no apmaiņas sākuma, lai secinātu, vai Alise ir demonstrējusi $x$ un attiecīgi atsaldēt savus līdzekļus vai arī pabeigt apmaiņu.
+
+Oriģināldarbā apmaiņas plūsma ir mulsinošāka, jo tā ir rakstīta priekš Bitcoin \textit{smart contract} valodas. Pielikumā ir kods priekš attiecīgajām transakcijām, kur C ķēdes vietā ir Stellar, bet D ķēdes vietā ir Ethereum.
+% uzrakstīt kodu
+Metode ir universālāka nekā sākumā sķiet, jo ķēdes valūtai var būt arī simboliska nozīme, tā var apzīmēt īpašumtiesības fiziskās pasaules lietām, uzņēmumu daļas un tamlīdzīgi.\cite{rosenfeld12}
+Apmaiņu var veikt arī vienas ķēdes ietvaros un tas ir noderīgi, ja ķēde neatļauj mainīt valūtu pašu pret sevi, kā atomāru operāciju.
