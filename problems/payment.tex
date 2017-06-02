@@ -1,1 +1,29 @@
-% iepriekšējā uzdevuma vispārinājums
+Aplūkosim uzdevumu, kurā Alise ir hakeris un Bobs ir kritis par upuri Alises izspiedējvīrusam.
+Bobam ir nošifrēti dati $Enc_k(d)$, bet Alisei ir atšifrēšanas atslēga $k_s$. Viņiem abiem ir zināmi šifrēšanas un atšifrēšanas algoritmi. Alise vēlas apmainīt atslēgu pret samaksu kriptovalūtā. Atslēga, kuru Bobs vēlas iegūt atbilst aprakstam, ja
+\begin{equation*}
+    Dec_k(Enc_k(d)) = d
+\end{equation*}
+Tomēr Bobam, kurš ir izspiedējvīrusa upuris, nav zināmi dati $d$. Labākajā gadījumā Bobam būs zināmi metadati par $d$, piemēram, dati veido pareizi formatētu partīciju un uz tās ir atrodami pdf faili, tad ir iespējams uzrakstīt funkciju $ValidMeta: \m \leftarrow \left\{ \t,\f \right\}$, kas pārbauda tamlīdzīgus nosacījumus. Tad teiksim, ka atslēga atbilst aprakstam, ja funkciju kompozīcija $ValidMeta \circ Dec_k$ atgriež patiesu vērtību.
+
+Lai atvieglotu un standartizētu $ValidMeta$ funkciju Alises vīruss var pirms šifrēšanas datiem priekšā pierakstīt patvaļīgu konstantu simbolu virkni, tad $ValidMeta$ pārbauda, vai dati sākas ar šādu simbolu virkni. Savukārt dati $d$ sastāv no simbolu virknes un Boba biznesa loģikas datu apvienojuma.
+
+Tehnisku iemeslu dēļ atšifrēt un pārbaudīt lielus datu apjomus uz ķēdes ir ilgi un dārgi, tāpēc nepieciešams šifrēt upura datus sekojošā veidā.
+\begin{enumerate}
+    \item Boba dati tiek sadalīti mazākos gabalos.
+    \item Katram gabalam priekšā tiek pierakstīta konstanta simbolu virkne.
+    \item Katrs gabals tiek nošifrēts.
+    \item Šifrētie gabali tiek saglabāti uz diska tā, lai var atpazīt kur beidzas viens un sākas cits.
+\end{enumerate}
+Apmaiņa notiek sekojošā veidā:
+\begin{enumerate}
+    \item Bobs patvaļīgi izvēlas dažus no blokiem.
+    \item Bobs uzkonstruē uz ķēdes kontu ar īpašībām:
+        \begin{itemize}
+            \item Ja tiek demonstrēta atslēga, kas atšifrē Boba izvēlētos blokus, tad valūta tiek pārskaitīta Alises kontam.
+            \item Pēc 3 dienām valūta tiek pārskaitīta Boba kontam.
+        \end{itemize}
+    \item Alise demonstrē atšifrēšanas atslēgu.
+\end{enumerate}
+
+Praktisku realizāciju iespējams veikt uz Ethereum ķēdes, jo tā pieļauj patvaļīgu skaitļošanu. Konceptuālu kodu skatīt pielikumā.
+% uzrakstīt kodu
