@@ -1,26 +1,26 @@
 Tirdzniecība interneta vidē gūst arvien lielāku popularitāti. 
 Ar to saistītas arī vairākas problēmas attiecībā pret godīgu apmaiņu starp divām savstarpēji neuzticīgām pusēm. 
-Pieņemsim, ka Alise un Bobs abi vēlas parakstīt elektronisku dokumentu, bet katrs no viņiem otram neuzticās tapēc Alise nesūtīs Bobam savu parakstu pirms Bobs neatsūtīs viņai savējo un otrādi. 
+Pieņemsim, ka Alise un Bobs abi vēlas parakstīt elektronisku dokumentu, bet katrs no viņiem otram neuzticās, tāpēc Alise nesūtīs Bobam savu parakstu pirms Bobs neatsūtīs viņai savējo un otrādi. 
 Tādējādi viņi nekad neapmainīsies ar parakstiem, turklāt ir pierādīts, ka bez trešās puses iejaukšanās nav iespējams sasniegt stingri godīgu apmaiņu.\cite{pagnia99}
 Ir piedāvāti dažādi problēmas risinājumi ar dažādām trešajām pusēm, bet ņemot vērā nesenos sasniegumus kriptovalūtu jomā uzskatu par nepieciešamu izpētīt risinājumus, kas trešās puses lomā novieto blokķēdi (ķēdi). 
 
 % kaut kāds paragrāfs par to kas ir blokķēde
 
 Pirmā ķēdes implementācija \textbf{Bitcoin} tika radīta kā konceptuāls pierādījums tam, ka var eksistēt digitāla valūta, kura ir decentralizēta un pseidonīma. 
-Vēlākas implementācijas stipri paplašināja ķēdes funkcionalitāti un atrisināja daudzas tehniskas \textbf{Bitcoin} problēmas, piemēram pieaugošo vēstures izmēru un nespēju augt līdzi pieaugošam transakciju skaitam.% citation needed
+Vēlākas implementācijas stipri paplašināja ķēdes funkcionalitāti un atrisināja daudzas tehniskas \textbf{Bitcoin} problēmas, piemēram, pieaugošo vēstures izmēru un nespēju augt līdzi pieaugošam transakciju skaitam.% citation needed 
 Viena no šādām implementācijām ir \textbf{Ethereum}, kura pieļauj jebkādu skaitļošanas operāciju veikšanu decentralizētā vidē, ne tikai valūtas pārskaitījumus.\cite{etherum}
 Rezultātā iespējams konstruēt līgumus, kuriem nepieciešama savstarpēji uzticama skaitļošanas mašīna.
-Iepriekšējais apgalvojums ir viegli pārprotams, jo ar vārdiem `uzticama skaitļošanas mašīna' šeit ir domāta kaste, kas garantēti veiks skaitļošanas operācijas un paziņos par rezultātu visiem dalībniekiem, nevis tāda, kas paturēs ievaddatus un skaitļošanas starprezultātus slepenībā.
+Iepriekšējais apgalvojums ir viegli pārprotams, jo ar vārdiem `uzticama skaitļošanas mašīna' šeit ir domāta kaste, kas garantēti veiks skaitļošanas operācijas un paziņos par rezultātu visiem dalībniekiem, nevis tāda mašīna, kas paturēs ievaddatus un skaitļošanas starprezultātus slepenībā.
 Tādējādi ķēde nerisina vairāku dalībnieku skaitļošanas (multi party computation) problēmu.
 Savukārt ķēdes priekšrocības pār parastu datoru ir tādas, ka starp ķēdes `skaitļošanas operācijām' ir arī naudas pārskaitīšana un ķēde saglabā neviltojamu vēsturi par veiktajām darbībām.
-Galvenokārt ķēde piedāvā alternatīvas esošiem biznesa procesiem un tās aplūkošanai ir praktiska nozīme.
+Galvenokārt, ķēde piedāvā alternatīvas esošiem biznesa procesiem, un tās aplūkošanai ir praktiska nozīme.
 
-Darbā tiks aplūkota vispārīga problēma par to, kādām jābūt apmaināmo lietu īpašībām, lai ķēdi, ar fiksētām īpašībām, varētu izmantot godīgai apmaiņai. Tostarp tiks aprakstīta atomāras, konsistentas, izolētas, noturīgas starpķēžu transakcijas (ACID cross chain transaction) veikšanas iespējamība.\cite{back14,nolan13} 
+Darbā tiek aplūkota vispārīga problēma par to, kādām jābūt apmaināmo lietu īpašībām, lai ķēdi ar fiksētām īpašībām varētu izmantot godīgai apmaiņai. Tostarp tiek aprakstīta atomāras, konsistentas, izolētas, noturīgas starpķēžu transakcijas (ACID cross chain transaction) veikšanas iespējamība.\cite{back14,nolan13} 
 % paskaidrot kas ir cross chain transactions
-Pēc līdzības principa tiks konstruētas arī citas transakcijas, kurās tikai vienai pusei nepieciešams uzticēties ķēdei.
+Pēc līdzības principa tiek konstruētas arī citas transakcijas, kurās tikai vienai pusei nepieciešams uzticēties ķēdei.
 
-Tiks aplūkota arī konkrēta problēma, kurā anonīmi hakeri (uzbrucējs) ielaužas uzņēmumu un valdības iestāžu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas. 
-Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. Programmu kas veic šifrēšanu sauc par izspiedējvīrusu.
+Tiek aplūkota arī konkrēta problēma, kurā anonīmi hakeri (uzbrucējs) ielaužas uzņēmumu un valdības iestāžu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas. 
+Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. Programmu, kas veic šifrēšanu, sauc par izspiedējvīrusu.
 Upurim šāda apmaiņa nav godīga, jo pēc naudas pārskaitījuma uzbrucējs var arī neatgriest upurim atšifrēšanas atslēgu. % citation needed
 
 % izklāsts pa nodaļām
