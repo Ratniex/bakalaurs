@@ -1,5 +1,4 @@
-Aplūkosim Alisi un Bobu. Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas atbilst aprakstam $Desc_a$, kuru Bobs vēlas noskaidrot, un Bobam ir ziņojums $m_b$, kuru vēlas Alise, turklāt viņi ir gatavi apmainīties ar ziņojumiem.
-% nav skaidrs, uz ko attiecas "kuru Bobs vēlas noskaidrot" - ziņojumu $m_a$ vai aprakstu $Desc_a$ ?
+Aplūkosim Alisi un Bobu. Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas atbilst aprakstam $Desc_a$ un Bobam ir ziņojums $m_b$, kas atbilst aprakstam $Desc_b$, turklāt viņi ir gatavi apmainīties ar ziņojumiem.
  Par \textbf{apmaiņu} sauc protokolu, pēc kura izpildes abas puses iegūst vēlamos ziņojumus. 
 
 Apmaiņu sauc par \textbf{godīgu}, ja pēc tās veikšanas visas puses ir ieguvušas vēlamos ziņojumus, vai arī neviena no pusēm nav ieguvusi papildus informāciju par ziņojumiem. Naiva apmaiņa ir sekojoša: Alise nosūta savu ziņojumu Bobam, un tad Bobs nosūta savu ziņojumu Alisei. Šāda apmaiņa nav godīga, jo Bobs pēc ziņojuma saņemšanas var novirzīties no protokola un savu ziņojumu nesūtīt. Alisei un Bobam savā starpā sazinoties, neizbēgami kāds no viņiem pirmais iegūs sev vēlamo ziņojumu un pārtrauks komunikāciju, tāpēc problēma nav atrisināma bez trešās puses iesaistīšanās apmaiņā.\cite{pagnia99}
@@ -11,7 +10,7 @@ Vienkāršības labad veiksim sekojošus pieņēmumus.
     \item Alise un Bobs ir vienojušies par globālo laiku $t_1$, pēc kura jebkurš nenosūtīts ziņojums tiek uzskatīts par novirzīšanos no protokola.
     \item Trešā puse katram saņemtajam ziņojumam garantēti dod parakstītu apstiprinājumu, ka ziņojums tika saņemts, kur apstiprinājums sastāv no globālā laika un saņemtā ziņojuma.
 \end{enumerate}
-% uzrakstīt kko par ceturto punktu
+Ceturtais punkts nodrošina, ka neuzticama trešā puse nevar ivairīties no atbildības izliekoties, ka nav saņēmusi ziņojumus. Lai arī šajā pieņēmumā godīgas apmaiņas problēma ir jau atrisināta, tomēr pieņēmums ir saprātīgs, jo trešā puse ir īpaša. Vēlāk redzēsim, ka ķēdei šī prasība izpildās.
 
 Godīga apmaiņa ir nepieciešama dažādās praktiskās situācijās. Aplūkosim sekojošo klasifikāciju.\cite[p.~8]{asokan98}
 \begin{description}
@@ -38,8 +37,7 @@ Protokols, kas izpilda godīgu apmaiņu dotajā gadījumā ir šāds.
 \end{enumerate}
 Ja A vai B nenosūta savu ziņojumu, tad T pēc laika $t_1$ paziņo abiem, ka maiņa tiek atcelta. Ja T nosūta B ziņojumu $m_a$, bet A nenosūta neko, tad A uzzinot, ka B ir ieguvis parakstītu līgumu spēs pierādīt, ka T ir sazvērējies pret viņu. Fakts, ka A vēl ir jānoskaidro, ka B ir ieguvis parakstītu līgumu ir mazliet negodīgi pret A. Dotais protokols pieprasa ļoti augstu uzticību T gan no A, gan B. Ir izveidoti daudz labāki protokoli, kas neļauj T uzzināt $m_a$ un $m_b$ vērtības, turklāt liek T iejaukties tikai nepieciešamības gadījumā, tomēr nav novērsts nelielais negodīgums attiecībā pret A.\cite{asokan98}
 
-Atrastajos apmaiņas protokolos~\cite{asokan98,schunter00}% citation needed
-trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos ziņojumus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
+Parasti trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros tiks definēta būtiski atšķirīga trešā puse. Tā būs pilnībā uzticama, bet nespēj turēt saņemtos ziņojumus slepenībā, padarot iepriekš piedāvātos protokolus nederīgus.
 
 Par ķēdi sauksim tādu trešo pusi, kurai izpildās īpašības:
 \begin{itemize}
@@ -50,5 +48,4 @@ Par ķēdi sauksim tādu trešo pusi, kurai izpildās īpašības:
 \end{itemize}
 
 Aplūkojot ķēdi kā trešo pusi ir pamats ticēt, ka tā nespēj palīdzēt risināt godīgu apmaiņu, jo, sūtot ziņojumus ķēdei, tie kļūst pieejami jebkuram, tomēr tas netiks formāli pierādīts. Lai godīgu apmaiņu varētu veikt ar ķēdes palīdzību, tiks uzlikti papildus nosacījumi uz apmaināmajiem ziņojumiem. 
-%Tā vietā, lai Alise un Bobs apmainītos ziņojumiem Bobs vēlas iegūt $m_a$, lai tas tiktu publicēts ķēdē un citādi ir bezvērtīgs. Tādā gadījumā Alise var priekšlaicīgi nostādīt ķēdi tā, lai $m_a$ publicēšana būtu iespējama tikai tad, ja tiek publicēts arī $m_b$.
-%salabo
+Ziņojumu sauksim par \textbf{transakciju}, ja tam ir vērtība tad un tikai tad, ja tas tiek publicēts ķēdē. Tādējādi Alise iedodot Bobam transakciju $m_a$ nezaudē godīgumu, ja ziņojums netiek vai arī nevar tikt publicēts. Savukārt, ja $m_a$ tiek publicēts tad jābūt garantijai, ka ķēdē tiek atklāts $m_b$ kā nenovēršams blakusefekts. Papildus tam nepieciešams, lai ziņojumiem nav jēgas palikt slepenībā no citiem novērotājiem.
