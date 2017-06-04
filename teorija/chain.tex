@@ -77,13 +77,12 @@ Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksi
 
 Lai ļaundarim izdotos cenzēt transakciju blokā $i$ tad viņam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir patreizējā vēsturē. Ja ļaundarim ir mazāk kā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt patreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
 
-% uzrakstit kkādu diskusiju
-% pateikt, ka bitcoin ir tirgus lideris
-% ir teorētiski ļoti stiprs
-% problēma ar izniekoto darbu
-% problēma ar centralizāciju
-% problēma ar vēstures izmēru
-% problēma ar lēnumu
+Bitcoin decentalizētības modelis ir ļoti spēcīgs, jo tas nepieļauj uzbrukumus pret ķēdes vēsturi. Saņemot divas dažādas ķēdes versijas ir iespējams ātri sarēķināt kura no vēsturēm ir pareizā. Citiem vienprātības algoritmiem tiek izdarīts pieņēmums, ka ir viena vispārpieņemta vēsture un lai jauns dalībnieks ielektu braucošajā vilcienā, tam ir jākonsultējas ar virsotni, kura jau sēž uz pareizās vēstures.
+
+Diemžēl aprakstītā metode balstās uz lielu skaitļošanas jaudas izniekošanu, un sistēmai ir dārgi pašai sevi uzturēt. Tiek spekulēts, ka ilgtermiņā Bitcoin ir ekonomiski neizdevīgi uzturēt. %citation
+
+Pašlaik ar Bitcoin bloku radīšanu nodarbojas tikai lielos angāros pilnos ar specializētām mikroshēmām vai arī botnetos. Nodarboties ar bloku veidošanu citādi ir neizdevīgi. Tā kā praktiski ar bloku radīšanu nodarbojas centralizēti, tad arī pašu sistēmu var uzskatīt par centralizējamu vai apkarojamu.
+
 \subsubsection{Pierādījums ar interesi (Proof of stake)}
 Metodes pamatā ir piešķirt nākamā bloka radīšanas tiesības kādam kontam pēc pseidogadījuma principa, kur varbūtība saņemt šīs tiesības ir proporcionāla konta bilancei. Ja konts saņem šīs tiesības, tad virsotne, kurai ir piekļuve kontam var to pierādīt demonstrējot derīgu parakstu. Izvēlētajam kontam jāpaspēj izveidot un publicēt bloku salīdzinoši īsā laikā, citādi tas netiek pieņemts. Tādējādi var veidoties vēstures sazarošanās, bet veidi kuros atrisināt konfliktu ir dažādi. Tipiski garākā ķēde tiek uzskatīta par pareizo.
 
@@ -126,8 +125,9 @@ Par FBA $\bra{V}{Q}$ sauc virsotņu kopu $V$ kur katrai virsotnei $v\in V$ ir de
 \end{equation*}
 Parastā Bizantijas vienošanās ir speciālgadījums, kad $\forall v_1,v_2\in V \;:\; Q(v_1) = Q(v_2)$ un nav jēgpilni runāt par nedzīvām vai nedrošām virsotnēm.
 Ja $\bra{V}{Q}$ visu kvorumu šķēlums ir netukšs tad saka, ka tai ir \textbf{vienots kvorums}. Pieņemsim, ka $V'\subset V$ ir visu godīgo virsotņu kopa un $Q'(v) = \left\{ x\cap V' | x\in Q(v) \right\}$, ja FBA $\bra{V'}{Q'}$ ir vienots kvorums, tad $\bra{V}{Q}$ spēs pieņemt vienotu lēmumu.\cite{mazieres15}
-% uzrakstīt diskusiju
-% virsotnēm nav ekonomiskas iniciatīvas uzturēt sistēmu
+
+Atšķirībā no iepriekšējām vienprātības metodēm šeit virsotnēm nav nekādās iniciatīvas uzturēt sistēmu.
+Stellar veidotāji paredz, ka būs pietiekami daudz sabiedriskā darba darītāju, jo tas nav pārāk dārgi, bet Ripple paredz, ka sistēmu uzturēs tās pašas bankas, kuras to izmantos.
 
 \subsubsection{Proof-of-work alternatīvas}
 Galvenokārt alternatīvas tiek meklētas, jo \textit{proof-of-work} uzturēšana prasa daudz elekrtoenerģijas, bet izmantojot vienprātības algoritmus, kuri nebalstās uz sarežģītu problēmu risināšanu ķēde tiek pakļauta uz vēstures balstītiem uzbrukumiem. Viena no alternatīvām ir izmantot uzdevumus, kuru risināšana aizņem daudz vietas atmiņā, bet nav tik skaitliski ietilpīga.\cite{dziembowski15} Tādējādi tiek risināta ne tikai elekrtoenerģijas patēriņa problēma, bet arī centralizācijas problēmu, jo ar specializētām iekārtām nevar iegūt vērā ņemamu priekšrocību. Šādi algoritmi pazīstami ar nosaukumu \textit{proof-of-space} vai \textit{proof-of-storage}.
