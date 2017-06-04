@@ -17,7 +17,7 @@ server.loadAccount(keys.B.publicKey())
             .addOperation(StellarSdk.Operation.payment({
                 destination: keys.D.publicKey(),
                 asset: StellarSdk.Asset.native(),
-                amount: "1000" // ransom
+                amount: "1000"
             }))
             .addOperation(StellarSdk.Operation.setOptions({
                 source: keys.D.publicKey(),
