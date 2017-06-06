@@ -1,18 +1,21 @@
 import subprocess
-import random
-import serpent
 import hashlib
-#  from pyetherum import tester, utils, abi
 from json import JSONDecoder
 dec = JSONDecoder()
+
 # setup ethereum chain
-#  ethereum_state = tester.state()
+# keys should be created beforehand
 ethereum_keys = {
-        A: {public: 'aaa', secret: 's3cr3t'},
-        B: {public: 'bbb', secret: '5e¢re7'},
+        A: {public: 'f410f4457a249786ffcbed4a5d880d9274be542f', secret: 'aoeu'},
+        B: {public: '99b3c2e7d1754b131308eec4900063c1b03ad9ce', secret: 'snth'},
         }
+subprocess.check_call(['geth', '--datadir data', '--networkid 123',
+    '--nodiscover', '--maxpeers 0', 'init', 'g1.json'])
+os = subprocess.os
+os.spawnl(os.P_NOWAIT, 'geth', '--rpc', '--rpcaddr localhost', '--rpcport 2222')
 print('Ethereum keys')
 print(ethereum_keys)
+
 # setup stellar chain
 b = subprocess.check_output(['node', 'generate_keys.js'])
 stellar_keys = dec.decode(b.decode())
@@ -37,6 +40,7 @@ h.update(x.encode())
 hash_x = h.hexdigest()
 
 # A freezes her funds in contract D on ethereum
+# address of new contract is sent to B
 contract_address = subprocess.check_call([
     'node',
     'T1.js',
@@ -53,6 +57,7 @@ subprocess.check_call([
     stellar_keys['A']['public'],
     stellar_keys['B']['secret'],
     stellar_keys['D']['secret'],
+    hash_x
     ])
 print('T2 done')
 
@@ -67,3 +72,10 @@ subprocess.check_call([
 print('T2 claimed')
 
 # B claims funds from account C
+subprocess.check_call([
+    'node',
+    'claim2.js',
+    contract_address,
+    x
+    ])
+print('T1 claimed')

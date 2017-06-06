@@ -7,8 +7,7 @@ const keys = {
     B: StellarSdk.Keypair.fromSecret   (process.argv[3]),
     D: StellarSdk.Keypair.fromSecret   (process.argv[4]),
 }
-const hash_x = '0xAAAACCCCDDDDFFFFAAAACCCCDDDDFFFFAAAACCCCDDDDFFFFAAAACCCCDDDDFFFF'
-// const hash_x = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase)); // not what i need
+const hash_x = process.argv[5]
 
 var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 server.loadAccount(keys.B.publicKey())
@@ -21,19 +20,19 @@ server.loadAccount(keys.B.publicKey())
             }))
             .addOperation(StellarSdk.Operation.setOptions({
                 source: keys.D.publicKey(),
-                signer: {weight: 3, sha256Hash: hash_x},
+                signer: {weight: 2, sha256Hash: hash_x},
             }))
             .addOperation(StellarSdk.Operation.setOptions({
                 source: keys.D.publicKey(),
-                signer: {weight: 3, ed25519PublicKey: keys.A.publicKey()},
+                signer: {weight: 4, ed25519PublicKey: keys.A.publicKey()},
             }))
             .addOperation(StellarSdk.Operation.setOptions({
                 source: keys.D.publicKey(),
                 highThreshold: 5,
                 medThreshold: 5,
                 lowThreshold: 5,
-                masterWeight: 3,
-                signer: {weight: 3, ed25519PublicKey: keys.B.publicKey()},
+                masterWeight: 0,
+                signer: {weight: 2, ed25519PublicKey: keys.B.publicKey()},
             }))
             .build();
         transaction.sign(keys.B);
