@@ -1,7 +1,9 @@
 Tas, ko sauc par ķēdi plašākā sabiedrībā, tik stipri atšķirās no Bitcoin tehniskā apraksta\cite{nakamoto08} dotās definīcijas, ka tā vairs nav izmantojama. 
 Lielākoties par ķēdi tiek saukta decentralizēta norēķinu sistēma, tomēr balstoties uz šīm norēķinu sistēmām tiek veidoti arī citi pakalpojumi, kuriem ar naudas pārskaitījumiem nav nekāda sakara, piemēram, domēna vārdu reģistra, sertifikātu autoritātes, vēlēšanu un citi pakalpojumi.\cite{namecoin}
-Turklāt esošām ķēžu implementācijām ir tik daudzveidīga funkcionalitāte, ka ir grūti spriest, kādās ir vispārīgas ķēdes īpašības.
-Šajā nodaļā aplūkosim ar ķēdēm saistītas tēmas \textemdash{} decentralizētas sistēmas, digitālas valūtas un blokķēdē izmantotās datu struktūras. Beigās tiek aplūkotas konkrētas ķēdes realizācijas.
+Turklāt esošām ķēžu implementācijām ir tik daudzveidīga funkcionalitāte, ka ir grūti spriest, kādās ir vispārīgas ķēdes īpašības. 
+Tomēr ir skaidrs, ka galvenā ķēdes īpašība ir spēja uzturēt uzticamu norēķinu sistēmu, tāpēc vispirms aplūkosim digitālu valūtu teoriju.
+Secināsim, ka ar digitālām valūtām saistītās problēmas var novērst, ja visus maksājumu pieprasījumus var sakārtot vienā secībā un izpildīt vai neizpildīt pēc to kārtības. Aplūkosim datu struktūras, kas ļauj pārbaudīt, ka dati nav pārkārtoti.
+Maksājumu pieprasījumus nepieciešams sakārtot vienai centrālai pusei, bet mūsu gadījumā tā ir decentralizēta sistēma, tāpēc aplūkosim kā izkliedētas sistēmas nonāk pie vienota stāvokļa. Formulēsim Bizantijas vienošanās problēmu un aplūkosim populārākos vienprātības algoritmus, lai secinātu, ka pieņēmums par ķēdes absolūtu uzticamību ir pamatots.
 
 \subsection{Digitāla valūta}
 Naudas atkārtota iztērēšana (double spending) ir kritiskākā digitālu valūtu problēma, kas ir analoģiska fiziskas naudas viltošanai, bet, tā kā digitāla valūta pēc savas būtības glabājas uz datora, tad to ir viegli nokopēt neskaitāmos eksemplāros. Vienīgais veids kā novērst problēmu ir, ja pārdevējs nelaiž pircēju ārā no veikala, kamēr nav saņēmis apstiprinājumu par naudas īpašnieka maiņu no vienota patiesības avota.\cite{frankel96}
@@ -60,10 +62,15 @@ Problēmas atrisinājums ir vienprātības algoritms, kuram izpildās divas īpa
     \item Datoram izpildot algoritmu tiek pieņemts tāds pats lēmums, kā citiem datoriem, kuri izpilda algoritmu.
     \item Neliels daudzums ar ļaunprātīgiem datoriem nespēj ietekmēt pieņemto lēmumu.
 \end{enumerate}\cite{lamport82}
-Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsotni} (node), jo šis termins tiek lietots ar ķēdēm saistītā literatūrā. Veiksim arī citas nelielas modifikācijas dotajam uzdevumam.
-Pēc katra pieņemtā lēmuma tīkla stāvoklis būs mainījies, un lēmuma pieņemšanu būs nepieciešams atkārtot. Teiksim, ka katram pieņemtajam lēmumam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} vērtību $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds lēmums un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs vērtību $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu lēmumu vienlaicīgi, bet gan to, lai vienots lēmums eksistētu. Šāda modifikācija noteikti ir nepieciešama, jo decentralizētā vidē nav pat zināms dalībnieku skaits un viens ļaundaris var netraucēti izlikties par vairākām virsotnēm.
-Tādēļ arī otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt pieņemto lēmumu.
-Turklāt kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, tāpēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus.
+Turpmāk datoru šīs problēmas kontekstā sauksim par \textbf{virsotni} (node), jo šis termins tiek lietots ar ķēdēm saistītā literatūrā. Savukārt lēmuma pieņemšanu sauksim par \textbf{bloka radīšanu}, jo katrs lēmums tiek saglabāts blokķēdes (datu struktūras) blokā. Veiksim arī citas nelielas modifikācijas dotajam uzdevumam:
+\begin{itemize}
+    \item Dalībnieku skaits sistēmā ir nedefinēts un var dinamiski mainīties.
+    \item Bloka radīšana tiek definēta katrai virsotnei atsevišķi, bet sistēmai kopumā ir nedefinēta.
+    \item Pēc katra radītā bloka tīkla stāvoklis būs mainījies, un būs nepieciešams atkārtot jauna bloka radīšanu. 
+    \item Teiksim, ka katram radītajam blokam $x$ ir indekss $i$. Virsotne var droši \textbf{publicēt} bloku $x$ pozīcijā $i$, ja visiem iepriekšējiem indeksiem ir publicēts kāds bloks un virsotne ir pārliecināta, ka arī citas virsotnes laika gaitā publicēs bloku $x$ pozīcijā $i$.\cite{mazieres15} Tādējādi mēs neprasām, lai visas virsotnes pieņemtu vienotu blokķēdes vēsturi vienlaicīgi, bet gan to, lai vienota blokķēdes vēsture eksistētu. 
+    \item Otro nosacījumu padarīsim spēcīgāku un skaidrāku, prasot, lai jebkāds daudzums ar ļaunprātīgām virsotnēm nespēj ietekmēt radīto bloku.
+\end{itemize}
+Kļūst skaidrs, ka mūsu gadījumā demokrātiska lēmuma pieņemšana nav risinājums, jo viens ļaundaris var netraucēti izlikties par vairākām virsotnēm, tāpēc aplūkosim populārākos līdz šim piedāvātos vienprātības algoritmus. Aplūkosim to potenciālos uzbrukumu virzienus un nepieciešamo uzticamības līmeni sistēmas dalībniekiem, lai novērtētu kādos apstākļos un cik saprātīgi ir pieņemt, ka ķēde ir uzticams patiesības avots.
 
 \subsubsection{Pierādījums ar darbu (Proof of work)}
 Virsotnes darbojas pēc sekojoša principa:\cite{nakamoto08}
@@ -80,6 +87,15 @@ Trešais punkts nodrošina to, ka ļaundarim nav vērts izlikties par vairākām
 Sesto punktu nepieciešams paskaidrot sīkāk. Par ķēdes \textbf{svaru} sauksim vidējo skaitļošanas darbu, kāds nepieciešams, lai atrastu visus blokus šajā ķēdē. Pareizā vēsture ir tā, kurai ir vislielākais svars. Par bloka atrašanu virsotnes īpašniekam palielinās bilance, tāpēc visas virsotnes ir motivētas taisīt jaunus blokus uz pareizās vēstures. Kad uz pareizās vēstures tiek atrasts bloks, tās svars palielinās, un šī vēsture kļūst vēl pareizāka. Ja divām vēsturēm ir līdzīgs svars, tad daļa no virsotnēm meklēs nākamo bloku uz vienas vēstures, bet daļa uz otras. Tai vēsturei, kurai pirmajai atradīs nākamo bloku, būs ievērojami lielāks svars, un tad visas virsotnes būs motivētas turpināt vienu vēsturi.
 
 Lai ļaundarim izdotos cenzēt transakciju blokā $i$, tad tam ir jāsāk meklēt bloki sākot no $i-1$ bloka un jāiegulda savā versijā lielāks darbs nekā ir pašreizējā vēsturē. Ja ļaundarim ir mazāk nekā puse no visu virsotņu skaitļošanas jaudas, tad viņa varbūtība panākt pašreizējo vēsturi eksponenciāli dilst atkarībā no attāluma (darba) starp bloku $i-1$ un aktuālo vēsturi.\cite{nakamoto08}
+Skatīt attēlu~\ref{fig:two-histories}.
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[scale=0.4]{teorija/two-histories.pdf}
+    \caption{Blokķēdes vēstures sadalīšanās}
+    Redzamas divas vēstures, kuras sakrīt līdz blokam $i$, bet tālāk sadalās.
+    Jebkurš novērotājs ir spējīgs ātri aprēķināt uz kuras vēstures ir veikts lielāks darbs un to uzskatīt par patieso vēsturi. Pieņemot, ka vismaz puse no sistēmas darbaspēka tiks veltīta patiesās vēstures pagarināšanai, tad ar lielu varbūtību tā darba ziņā atrausies no alternatīvās vēstures.
+\label{fig:two-histories}
+\end{figure}
 
 Bitcoin decentalizētības modelis ir ļoti spēcīgs, jo tas nepieļauj uzbrukumus pret ķēdes vēsturi. Saņemot divas dažādas ķēdes versijas ir iespējams ātri sarēķināt kura no vēsturēm ir pareizā. Citiem vienprātības algoritmiem tiek izdarīts pieņēmums, ka ir viena vispārpieņemta vēsture un lai jauns dalībnieks ielektu braucošajā vilcienā, tam ir jākonsultējas ar virsotni, kura jau sēž uz pareizās vēstures.
 
