@@ -48,7 +48,7 @@ contract_address = subprocess.check_call([
     ethereum_keys['B']['public'],
     hash_x
     ])
-print('T1 done')
+print('T1 frozen')
 
 # B freezes his funds in account D on stellar
 subprocess.check_call([
@@ -59,7 +59,7 @@ subprocess.check_call([
     stellar_keys['D']['secret'],
     hash_x
     ])
-print('T2 done')
+print('T2 frozen')
 
 # A claims funds from account D
 subprocess.check_call([
