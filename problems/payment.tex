@@ -1,3 +1,4 @@
+% Kiberuzbrukums ar izspiedējvīrusu ir aktuāla mūsdienu pasaules problēma. 
 Aplūkosim uzdevumu, kurā Alise ir hakeris un Bobs ir kritis par upuri Alises izspiedējvīrusam.
 Bobam ir nošifrēti dati $Enc_k(d)$, bet Alisei ir atšifrēšanas atslēga $k_s$. Viņiem abiem ir zināmi šifrēšanas un atšifrēšanas algoritmi. Alise vēlas apmainīt atslēgu pret samaksu kriptovalūtā. Atslēga, kuru Bobs vēlas iegūt atbilst aprakstam, ja
 \begin{equation*}
@@ -16,11 +17,12 @@ Tehnisku iemeslu dēļ atšifrēt un pārbaudīt lielus datu apjomus uz ķēdes 
 \end{enumerate}
 Apmaiņa notiek sekojošā veidā:
 \begin{enumerate}
-    \item Bobs patvaļīgi izvēlas dažus no blokiem.
+    \item Bobs, ņemot vērā Alises vēlmes, izvēlas laiku $t_1$ pirms kura jānotiek apmaiņai.
+    \item Bobs patvaļīgi izvēlas dažus no nošifrēto datu blokiem.
     \item Bobs uzkonstruē uz ķēdes kontu ar īpašībām:
         \begin{itemize}
-            \item Ja tiek demonstrēta atslēga, kas atšifrē Boba izvēlētos blokus, tad valūta tiek pārskaitīta Alises kontam.
-            \item Pēc 3 dienām valūta tiek pārskaitīta Boba kontam.
+            \item Ja tiek demonstrēta kriptogrāfiska atslēga $k$, kas pareizi atšifrē Boba izvēlētos blokus, tad valūta tiek pārskaitīta Alises kontam.
+            \item Pēc $t_1$ valūta tiek pārskaitīta Boba kontam.
         \end{itemize}
     \item Alise demonstrē atšifrēšanas atslēgu.
 \end{enumerate}
