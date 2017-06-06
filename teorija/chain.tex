@@ -16,7 +16,7 @@ Turklāt algoritmam jābūt noturīgam pret cenzūru un sabotāžu, lai tas būt
 Šajā nodaļā aplūkosim datu struktūras, kas ļauj pārliecināties par datu integritāti. Pieņemsim, ka ir nepieciešams iegūt lielu datu apjomu un ir uzticams avots, no kura iegūt hash vērtību, pret kuru var pārbaudīt, ka dati nav mainīti. 
 %kas ir hash?
 
-Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto hash vērtību. Problēma šādā pieejā ir tāda, ka, iegūstot nedaudz atšķirīgus datus, tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
+Naivais veids būtu aprēķināt hash no visiem datiem un salīdzināt pret uzticamā avota sniegto vērtību. Problēma šādā pieejā ir tāda, ka, iegūstot nedaudz atšķirīgus datus, tie visi ir jāizmet un jāmeklē cits datu ieguves avots. Aplūkosim metodi, kas optimizē nepieciešamo komunikācijas daudzumu un dod iespēju iegūt datus no dažādiem avotiem vienlaicīgi.
 
 Sadalīsim datus vairākās daļās un katrai daļai aprēķināsim hash vērtību. Tad tiek aprēķināts hash no visām iepriekš iegūtajām hash vērtībām, un šo izmanto par galveno (saknes) hash vērtību, kas iegūta no uzticamā avota. Skatīt attēlu~\ref{fig:hash-list}.
 
@@ -109,7 +109,7 @@ Jāpiebilst, ka dalībniekiem ar lielām bilancēm ir ekonomiska motivācija neg
 
 \subsubsection{Federatīva Bizantijas vienošanās (FBA)}
 Vairāku nesaistītu trešo pušu kopīga parakstīšanās kā viens no vienprātības veidiem tika aplūkots jau Nakamoto darbā\cite{nakamoto08}, bet tika noraidīts, jo ir pārāk centralizēts. Tomēr ir aprakstīta arī teorija, kurā trešās puses var būt patvaļīgi daudz un savā starpā cita citu uzraudzīt.\cite{mazieres15}
-Lai virsotne gūtu ietekmi šajā sistēmā, tās īpašniekam ir jāpārliecina citu ietekmīgu virsotņu īpašniekus par stabilu internetu un motivāciju darboties godīgi (ievērot vienprātības protokolu). Tādējādi virsotnes veido savstarpējas uzticības tīklu (federāciju) un pietiek dažiem godīgiem federācijas locekļiem, lai visi būtu spiesti būt godīgi. Līdzīgi kā \textit{proof-of-stake} gadījumā, jauniem dalībniekiem ir nepieciešams iegūt vēsturi no kādas trešās puses, bet vienas federācijas ietvaros vēsture nevar sadalīties divās daļās.
+Lai virsotne gūtu ietekmi šajā sistēmā, tās īpašniekam ir jāpārliecina citu ietekmīgu virsotņu īpašniekus par stabilu internetu un motivāciju darboties godīgi (ievērot vienprātības protokolu). Tādējādi virsotnes veido savstarpējas uzticības tīklu (federāciju), kurā pie vienota lēmuma nonāk arī savstarpēji neuzticīgas virsotnes. Līdzīgi kā \textit{proof-of-stake} gadījumā, jauniem dalībniekiem ir nepieciešams iegūt vēsturi no kādas trešās puses, bet vienas federācijas ietvaros vēsture nevar sadalīties divās daļās.
 
 Papildināsim uzdevumu ar sekojošajām definīcijām.
 \begin{itemize}
@@ -136,7 +136,7 @@ Atšķirībā no iepriekšējām vienprātības metodēm šeit virsotnēm nav ne
 Stellar veidotāji paredz, ka būs pietiekami daudz sabiedriskā darba darītāju, jo tas nav pārāk dārgi, bet Ripple paredz, ka sistēmu uzturēs tās pašas bankas, kuras to izmantos.
 
 \subsubsection{Proof-of-work alternatīvas}
-Galvenokārt alternatīvas tiek meklētas, jo \textit{proof-of-work} uzturēšana prasa daudz elekrtoenerģijas, bet izmantojot vienprātības algoritmus, kuri nebalstās uz sarežģītu problēmu risināšanu, ķēde tiek pakļauta uz vēstures balstītiem uzbrukumiem. Viena no alternatīvām ir izmantot uzdevumus, kuru risināšana aizņem daudz vietas atmiņā, bet nav tik skaitliski ietilpīga.\cite{dziembowski15} Tādējādi tiek risināta ne tikai elekrtoenerģijas patēriņa problēma, bet arī centralizācijas problēma, jo ar specializētām iekārtām nevar iegūt vērā ņemamu priekšrocību. Šādi algoritmi pazīstami ar nosaukumu \textit{proof-of-space} vai \textit{proof-of-storage}.
+Galvenokārt alternatīvas tiek meklētas, jo \textit{proof-of-work} uzturēšana prasa daudz elektroenerģijas, bet izmantojot vienprātības algoritmus, kuri nebalstās uz sarežģītu problēmu risināšanu, ķēde tiek pakļauta uz vēstures balstītiem uzbrukumiem. Viena no alternatīvām ir izmantot uzdevumus, kuru risināšana aizņem daudz vietas atmiņā, bet nav tik skaitliski ietilpīga.\cite{dziembowski15} Tādējādi tiek risināta ne tikai elektroenerģijas patēriņa problēma, bet arī centralizācijas problēma, jo ar specializētām iekārtām nevar iegūt vērā ņemamu priekšrocību. Šādi algoritmi pazīstami ar nosaukumu \textit{proof-of-space} vai \textit{proof-of-storage}.
 
 Vēl citas savdabīgas metodes balstās uz interneta joslas platumu kā ierobežotu resursu. Viena no tām ir \textit{proof-of-DDoS}, kurā virsotnes pēc cita algoritma vienojas, kuram tīmekļa serverim uzbrukt, un tad veic uz šo serveri atkārtotus savienojuma pieprasījumus, līdz ir iegūts savienojuma apstiprinājums ar vēlamām īpašībām, piemēram, hash vērtība ir mazāka par noteiktu vērtību. Šī metode balstās uz citām centralizācijas problēmām kā TLS sertifikātu autoritātēm domēnu validēšanai, un tiek izdarīts pieņēmums, ka DDoS uzbrukuma upuris nesadarbojas ar kādu konkrētu virsotni.\cite{wustrow16}
 
