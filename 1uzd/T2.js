@@ -7,12 +7,12 @@ const keys = {
     B: StellarSdk.Keypair.fromSecret   (process.argv[3]),
     D: StellarSdk.Keypair.fromSecret   (process.argv[4]),
 }
-const x = new Buffer(process.argv[5], 'hex');
+const hash_x = '0xAAAACCCCDDDDFFFFAAAACCCCDDDDFFFFAAAACCCCDDDDFFFFAAAACCCCDDDDFFFF'
+// const hash_x = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase)); // not what i need
 
 var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 server.loadAccount(keys.B.publicKey())
     .then(function(account) {
-        const hash_x = crypto.createHash('sha256').update(x).digest('hex');
         const transaction = new StellarSdk.TransactionBuilder(account)
             .addOperation(StellarSdk.Operation.payment({
                 destination: keys.D.publicKey(),

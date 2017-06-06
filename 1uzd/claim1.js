@@ -6,7 +6,7 @@ const keys = {
     A: StellarSdk.Keypair.fromSecret   (process.argv[2]),
     D: StellarSdk.Keypair.fromPublicKey(process.argv[3]),
 }
-const x = process.argv[4]
+const x = process.argv[4] // read this from ethereum chain
 
 var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 server.loadAccount(keys.D.publicKey())

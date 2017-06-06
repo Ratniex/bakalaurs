@@ -10,7 +10,12 @@ const keys = {
 var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 server.loadAccount(keys.D.publicKey())
     .then(function(account) {
-        const transaction = new StellarSdk.TransactionBuilder(account)
+        var time = new Date();
+        time.setDate(time.getDate() + 2);
+        const transaction = new StellarSdk.TransactionBuilder(
+                account,
+                {timebounds: {minTime: time.getTime()}}
+            )
             .addOperation(StellarSdk.Operation.payment({
                 destination: keys.B.publicKey(),
                 asset: StellarSdk.Asset.native(),

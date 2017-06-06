@@ -1,12 +1,16 @@
 import subprocess
 import random
 import serpent
+import hashlib
 #  from pyetherum import tester, utils, abi
 from json import JSONDecoder
 dec = JSONDecoder()
 # setup ethereum chain
 #  ethereum_state = tester.state()
-ethereum_keys = 'none'
+ethereum_keys = {
+        A: {public: 'aaa', secret: 's3cr3t'},
+        B: {public: 'bbb', secret: '5e¢re7'},
+        }
 print('Ethereum keys')
 print(ethereum_keys)
 # setup stellar chain
@@ -28,16 +32,19 @@ print('partially signed unfreeze transaction:', unfreeze_xdr)
 
 # A chooses random x
 x = 'PaSsW0rD'
+h = hashlib.sha256()
+h.update(x.encode())
+hash_x = h.hexdigest()
 
 # A freezes her funds in contract D on ethereum
-
-#  serpent_code = '''
-#  def multiply(a):
-    #  return(a*2)
-#  '''
-#  c = s.abi_contract(serpent_code)
-#  o = c.multiply(5)
-#  print(str(o))
+contract_address = subprocess.check_call([
+    'node',
+    'T1.js',
+    ethereum_keys['A']['secret'],
+    ethereum_keys['B']['public'],
+    hash_x
+    ])
+print('T1 done')
 
 # B freezes his funds in account D on stellar
 subprocess.check_call([
@@ -46,8 +53,6 @@ subprocess.check_call([
     stellar_keys['A']['public'],
     stellar_keys['B']['secret'],
     stellar_keys['D']['secret'],
-    x
-    #  hash_x, salabo, lai hash tiktu nolasīts no ether ķēdes
     ])
 print('T2 done')
 
