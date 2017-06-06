@@ -11,7 +11,7 @@ Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
 
 Par asimetrisku jeb publisko atslēgu kriptosistēmu sauc tādu, kurai atslēgu telpa sastāv no pāriem $(k_p, k_s)$, kur $k_p$ ir publiskā atslēga un $k_s$ ir slepenā atslēga. Šajās sistēmās šifrēšanas algoritmam ir atļauts izmantot publisko atslēgu, bet atšifrēšanas algoritmam - privāto. Turpmāk tiks runāts tikai par asimetriskām kriptosistēmām.
 
-\textbf{Varbūtisks algoritms} jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna, kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas, pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritmu sauc par \textbf{efektīvu}, ja eksistē tāds polinoms $P$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk nekā $P(n)$ soļos. Varbūtiska algoritma rezultāts ir gadījuma lielums.
+\textbf{Varbūtisks algoritms} jeb varbūtiska polinomiālā laikā ierobežota Tjūringa mašīna (Probabilistic polynomial-time Turing machine (\ppt)) ir Tjūringa mašīna, kurai papildus ievaddatu lentei ir dota lente, kura pēc katra soļa padod mašīnai jaunu gadījuma skaitli. Ātrdarbība tiek novērta no apakšas, pieņemot, ka jebkuriem ievaddatiem tiks uzģenerēti tādi gadījuma skaitļi, kas liks algoritmam darboties pēc iespējas ilgāk. Algoritmu sauc par \textbf{efektīvu}, ja eksistē tāds polinoms $Q$, ka jebkuram ievaddatu izmēram $n$ tas apstājas ātrāk nekā $Q(n)$ soļos. Varbūtiska algoritma rezultāts ir gadījuma lielums.
 
 Varbūtisks algoritms $\a$ \textbf{izrēķina} funkciju $f$, ja
 $$ \forall x : \quad P[\a(x) = f(x)] = 1 $$
