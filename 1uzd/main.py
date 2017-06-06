@@ -24,10 +24,9 @@ unfreeze_xdr = subprocess.check_output([
     stellar_keys['B']['public'],
     stellar_keys['D']['public'],
     ])
-print('partially signed unfreezing transaction:', unfreeze_xdr)
+print('partially signed unfreeze transaction:', unfreeze_xdr)
 
 # A chooses random x
-#  x = ''.join(random.choices('0123456789ABCDEF', k=512))
 x = 'PaSsW0rD'
 
 # A freezes her funds in contract D on ethereum
@@ -62,3 +61,4 @@ subprocess.check_call([
     ])
 print('T2 claimed')
 
+# B claims funds from account C
