@@ -1,4 +1,4 @@
-Šajā nodaļā tiek konspektēts minimālais kriptogrāfijas daudzums, lai darbs būtu uztverams, tomēr padziļinātas zināšanas ir ieteicamas un to iegūšana tiek atstāta lasītāja ziņā. Definīcijas un atsevišķi skaidrojumi tiek ņemti no\cite{pass10}.
+Šajā nodaļā tiek konspektēts minimālais kriptogrāfijas daudzums, lai darbs būtu uztverams, tomēr padziļinātas zināšanas ir ieteicamas un to iegūšana tiek atstāta lasītāja ziņā. Dažas no definīcijām būs nekorektas, jo netiks definētas bezgalīgi mazas funkcijas jēdziens, kā arī netiks definētas puzles. Definīcijas un atsevišķi skaidrojumi tiek ņemti no\cite{pass10}.
 
 Par \textbf{kriptosistēmu} sauc kopu $(\m, \k, Gen, Enc, Dec)$, kur
 \begin{description}
@@ -20,8 +20,8 @@ Praksē tiek izmantoti arī algoritmi, kas retos gadījumos kļūdās, bet šī 
 Kriptosistēmu sauc par efektīvu, ja izpildās īpašības:
 \begin{enumerate}
     \item $Gen(1^n)$ ir \ppt, kas izveido atslēgu $k$ jebkurai $n\in\n$ vērtībai.
-    \item $Enc_k(m)$ ir \ppt, kas izveido šifrtektstu $c$ jebkurai atslēgai $k$ un ziņojumam $m$.
-    \item $Dec_k(c)$ ir \ppt, kas dotam $k$ atšifrē ziņojumu $c$.
+    \item $Enc_k(m)$ ir \ppt, kas izveido šifrētu ziņojumu $c$ jebkurai atslēgai $k$ un ziņojumam $m$.
+    \item $Dec_k(c)$ ir \ppt, kas dotai atslēgai $k$ atšifrē ziņojumu $c$.
     \item Visiem ziņojumiem tiek atšifrēts tas pats, kas tika nošifrēts.
         $$ \forall n\in\n, m\in\m \quad P[k\leftarrow Gen(1^n): Dec_k(Enc_k(m)) = m] = 1 $$
 \end{enumerate}
@@ -32,9 +32,9 @@ Jebkurai kriptosistēmai prasa, lai no dotiem $m\in\m$ un $k\in\k$ būtu iespēj
 
 Par \textbf{vienvirziena funkciju} $f$ sauc tādu, kurai eksistē \ppt{} $\mathcal{C}$, kas aprēķina $f$, bet neeksistē \ppt{} $\a$, kuram 
 $$ \forall y \in \text{Ran}(f): P[f(\a(y)) = y] = 1 $$
-Vispārīga kriptogrāfijas teorija daudz balstās uz vienvirziena funkcijām, un tām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiskā vērtība.
+Vispārīgajā kriptogrāfijas teorijā vienvirziena funkcijām ir smalkāks iedalījums, bet dotajai definīcijai ir maza teorētiskā vērtība.
 
-Par jaucējfunkciju (hash function) sauc vienvirziena funkciju $h: \oi^* \to \oi^n$, kurai izpildās noturība pret sadursmēm. 
+Par jaucējfunkciju (hash function) sauc vienvirziena funkciju $h: \oi^* \to \oi^n$, kurai izpildās noturība pret sadursmēm, jeb pretinieks $\a$ nespēj ar vērā ņemamu varbūtību atrast tādus $x$ un $y$, lai to hash vērtības sakristu.
 \begin{equation*}
     P[x, y \leftarrow \a : h(x) = h(y)] = 0
 \end{equation*}

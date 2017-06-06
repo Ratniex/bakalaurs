@@ -4,8 +4,8 @@ Pieņemsim, ka Alise un Bobs abi vēlas parakstīt elektronisku dokumentu, bet k
 Tādējādi viņi nekad neapmainīsies ar parakstiem, turklāt ir pierādīts, ka bez trešās puses iejaukšanās nav iespējams sasniegt stingri godīgu apmaiņu.\cite{pagnia99}
 Ir piedāvāti dažādi problēmas risinājumi ar dažādām trešajām pusēm, bet ņemot vērā nesenos sasniegumus kriptovalūtu jomā ir nepieciešams izpētīt risinājumus, kas trešās puses lomā novieto blokķēdi (ķēdi). 
 
-Par ķēdi uzskatīsim anonīmi replicētu datu bāzi, kurā jebkuram ir tiesības veikt anonīmus ierakstus. Lai ķēde būtu pasargāta pret sabotāžu un spamu, izmaiņas tiek veiktas pēc iepriekš uzstādītiem noteikumiem.
-Tipiski ķēde tiek izmantota, lai veiktu finansu operācijas un spama problēma tiek risināta ar komisijas iekasēšanu kriptovalūtā. Kas skaitās sabotāža tiek atstāts brīvai interpretācijai, bet normālā gadījumā ķēdes lietotāja bilance nedrīkstētu samazināties bez viņa paraksta. Papildus iepriekš minētajam pieņemsim, ka ķēde uztur vienotu vēsturi ar veiktajām operācijām un tā ir brīvi pieejama jebkuram.
+Par ķēdi uzskatīsim anonīmi replicētu datu bāzi, kurā jebkuram ir tiesības veikt anonīmus ierakstus. Lai ķēde būtu pasargāta pret sabotāžu un surogātziņojumiem, izmaiņas tiek veiktas pēc iepriekš uzstādītiem noteikumiem.
+Tipiski ķēde tiek izmantota, lai veiktu finansu operācijas un surogātziņojumu problēma tiek risināta ar komisijas iekasēšanu kriptovalūtā. Kas skaitās sabotāža tiek atstāts brīvai interpretācijai, bet normālā gadījumā ķēdes lietotāja bilance nedrīkstētu samazināties bez viņa paraksta. Papildus iepriekš minētajam pieņemsim, ka ķēde uztur vienotu vēsturi ar veiktajām operācijām un tā ir brīvi pieejama jebkuram.
 
 Pirmā ķēdes implementācija \textbf{Bitcoin} tika radīta kā konceptuāls pierādījums tam, ka var eksistēt digitāla valūta, kura ir decentralizēta un anonīma. 
 Vēlākas implementācijas stipri paplašināja ķēdes funkcionalitāti un atrisināja daudzas tehniskas \textbf{Bitcoin} problēmas, piemēram, pieaugošo vēstures izmēru un nespēju augt līdzi pieaugošam transakciju skaitam.\cite{barber12}
@@ -15,12 +15,15 @@ Iepriekšējais apgalvojums ir viegli pārprotams, jo ar vārdiem `uzticama skai
 Tādējādi ķēde nerisina vairāku dalībnieku skaitļošanas (multi party computation) problēmu.
 Galvenokārt, ķēde piedāvā alternatīvas esošiem biznesa procesiem, un tās aplūkošanai ir praktiska nozīme.
 
-Pirmajā nodaļā tiks vienkāršotā veidā izklāstīta publisko atslēgu kriptogrāfija. Dažas no definīcijām būs nekorektas, jo netiks definētas bezgalīgi mazas funkcijas jēdziens, kā arī netiks definētas puzles. Tiks aplūkota vispārīga teorija par godīgas apmaiņas problēmu un to kā ķēde sašaurina vispārīgo problēmu. Tālāk tiks paskaidroti ķēdes darbības principi, kāpēc praksē to var uzskatīt par pilnībā uzticamu un kādas ir šīs tehnoloģijs problēmas.
+Pirmajā nodaļā tiks vienkāršotā veidā izklāstīta publisko atslēgu kriptogrāfija. Tiks aplūkota vispārīga teorija par godīgas apmaiņas problēmu un to kā ķēde sašaurina vispārīgo problēmu. Tālāk tiks paskaidroti ķēdes darbības principi, kāpēc praksē to var uzskatīt par pilnībā uzticamu un kādas ir šīs tehnoloģijs problēmas.
 
-Otrajā nodaļā tiks aplūkoti divi uzdevumi.
-Pirmajā uzdevumā tiks aprakstīta atomāras, konsistentas, izolētas, noturīgas starpķēžu transakcijas (ACID cross chain transaction) veikšanas iespējamība.\cite{back14,nolan13} Datu bāzu kontekstā ir normāli, ja viens pieprasījums ar vairākām operācijām neiesprūst izpildes vidū, tomēr realizēt to uz ķēdes ir sarežģītāk, jo ķēdes lietotājiem ir jāsadarbojas, lai veiktu vairākas operācijas. Vienas ķēdes ietvaros ir iespējams realizēt vēlamo funkcionalitāti, bet uz divām dažādām ķēdēm ir nepieciešams, lai pēc pirmās operācijas veikšanas pārējās būtu veicamas bez citu lietotāju sadarbības.
-
-Otrajā uzdevumā tiks aplūkots praktisks pielietojums, kurā anonīmi hakeri (uzbrucējs) ielaužas uzņēmumu un valdības iestāžu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas. 
-Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. Programmu, kas veic šifrēšanu, sauc par izspiedējvīrusu.
+Otrajā nodaļā tiks aplūkoti divi uzdevumi:
+\begin{itemize}
+    \item 
+        Pirmajā uzdevumā tiks aprakstīta atomāras, konsistentas, izolētas, noturīgas starpķēžu transakcijas (ACID cross chain transaction) veikšanas iespējamība.\cite{back14,nolan13} Datu bāzu kontekstā ir normāli, ja viens pieprasījums ar vairākām operācijām neiesprūst izpildes vidū, tomēr realizēt to uz ķēdes ir sarežģītāk, jo ķēdes lietotājiem ir jāsadarbojas, lai veiktu vairākas operācijas. Vienas ķēdes ietvaros ir iespējams realizēt vēlamo funkcionalitāti, bet uz divām dažādām ķēdēm ir nepieciešams, lai pēc pirmās operācijas veikšanas pārējās būtu veicamas bez citu lietotāju sadarbības.
+    \item
+        Otrajā uzdevumā tiks aplūkots praktisks pielietojums, kurā anonīmi hakeri (uzbrucējs) ielaužas uzņēmumu un valdības iestāžu (upuris) informācijas sistēmās un nošifrē visu cieto disku zem uzbrucējam zināmas atslēgas.
+        Vēlāk uzbrucējs pieprasa no upura izpirkuma maksu kādā no kriptovalūtām apmaiņā pret atšifrēšanas atslēgu. Programmu, kas veic šifrēšanu, sauc par izspiedējvīrusu.
 Upurim šāda apmaiņa nav godīga, jo pēc naudas pārskaitījuma uzbrucējs var arī neatgriest upurim atšifrēšanas atslēgu. % citation needed
+\end{itemize}
 

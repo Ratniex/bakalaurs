@@ -1,13 +1,15 @@
-Aplūkosim Alisi un Bobu. Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas atbilst aprakstam $Desc_a$ un Bobam ir ziņojums $m_b$, kas atbilst aprakstam $Desc_b$, turklāt viņi ir gatavi apmainīties ar ziņojumiem.
+Par \textbf{aprakstu} $Desc: \m \rightarrow \left\{ \t, \f \right\}$ sauc funkciju, kura nosaka, vai ziņojumam piemīt vēlamās īpašības. Ziņojums $x$ atbilst aprakstam $x$, ja $Desc(x) = \t$.
+
+Pieņemsim, ka Alisei ir zināms ziņojums $m_a$, kas atbilst aprakstam $Desc_a$ un Bobam ir ziņojums $m_b$, kas atbilst aprakstam $Desc_b$, turklāt viņi ir gatavi apmainīties ar ziņojumiem.
  Par \textbf{apmaiņu} sauc protokolu, pēc kura izpildes abas puses iegūst vēlamos ziņojumus. 
 
-Apmaiņu sauc par \textbf{godīgu}, ja pēc tās veikšanas visas puses ir ieguvušas vēlamos ziņojumus, vai arī neviena no pusēm nav ieguvusi papildus informāciju par ziņojumiem. Naiva apmaiņa ir sekojoša: Alise nosūta savu ziņojumu Bobam, un tad Bobs nosūta savu ziņojumu Alisei. Šāda apmaiņa nav godīga, jo Bobs pēc ziņojuma saņemšanas var novirzīties no protokola un savu ziņojumu nesūtīt. Alisei un Bobam savā starpā sazinoties, neizbēgami kāds no viņiem pirmais iegūs sev vēlamo ziņojumu un pārtrauks komunikāciju, tāpēc problēma nav atrisināma bez trešās puses iesaistīšanās apmaiņā.\cite{pagnia99}
+Apmaiņu sauc par \textbf{godīgu}, ja pēc tās veikšanas visas puses ir ieguvušas vēlamos ziņojumus, vai arī neviena no pusēm nav ieguvusi papildus informāciju par ziņojumiem.  Naiva apmaiņa ir sekojoša: Alise nosūta savu ziņojumu Bobam, un tad Bobs nosūta savu ziņojumu Alisei. Šāda apmaiņa nav godīga, jo Bobs pēc ziņojuma saņemšanas var novirzīties no protokola un savu ziņojumu nesūtīt. Alisei un Bobam savā starpā sazinoties, neizbēgami kāds no viņiem pirmais iegūs sev vēlamo ziņojumu un pārtrauks komunikāciju, tāpēc problēma nav atrisināma bez trešās puses iesaistīšanās apmaiņā.\cite{pagnia99}
 
 Vienkāršības labad veiksim sekojošus pieņēmumus.
 \begin{enumerate}
     \item Visi komunikācijas kanāli ir droši. Tos nenoklausās.
     \item Visi komunikācijas kanāli ir uzticami. Katrs ziņojums garantēti nonāk pie saņēmēja īsā laikā.
-    \item Alise un Bobs ir vienojušies par globālo laiku $t_1$, pēc kura jebkurš nenosūtīts ziņojums tiek uzskatīts par novirzīšanos no protokola.
+    \item Alise un Bobs ir vienojušies par globālo laiku $t_1$, līdz kuram jānotiek apmaiņai. Tādējādi iesaistītās puses nevar izlikties, ka gribēja nosūtīt ziņojumu, bet nepaspēja.
     \item Trešā puse katram saņemtajam ziņojumam garantēti dod parakstītu apstiprinājumu, ka ziņojums tika saņemts, kur apstiprinājums sastāv no globālā laika un saņemtā ziņojuma.
 \end{enumerate}
 Ceturtais punkts nodrošina, ka neuzticama trešā puse nevar ivairīties no atbildības izliekoties, ka nav saņēmusi ziņojumus. Lai arī šajā pieņēmumā godīgas apmaiņas problēma ir jau atrisināta, tomēr pieņēmums ir saprātīgs, jo trešā puse ir īpaša. Vēlāk redzēsim, ka ķēdei šī prasība izpildās.
@@ -41,7 +43,7 @@ Parasti trešā puse tiek aplūkota kā neuzticama, tomēr šī darba ietvaros t
 
 Par ķēdi sauksim tādu trešo pusi, kurai izpildās īpašības:
 \begin{itemize}
-    \item Tiek uzturēta brīvi pieejama vēsture ar veiktajām operācijām, sakārtota pēc laika.
+    \item Tiek uzturēta publiski pieejama vēsture ar veiktajām operācijām, sakārtota pēc laika.
     \item Katrs saņemtais ziņojums, kas ir legāla operācija, tiek pievienots vēsturei.
     \item Ir definēta kopa ar kontiem, un katram kontam ir definēta bilance.
     \item Algoritms, kas nosaka, vai operācija ir legāla, ir determinēts un publiski zināms.
